@@ -7,7 +7,7 @@ import { Row } from "reactstrap";
 import ShowModal from "../../Elements/Alerts&Modals/Modal";
 import Btn from "../../Elements/Buttons/Btn";
 import request from "../../Utils/AxiosUtils";
-import { country, shipping } from "../../Utils/AxiosUtils/API";
+import { countryV1, shipping } from "../../Utils/AxiosUtils/API";
 import SuccessHandle from "../../Utils/CustomFunctions/SuccessHandle";
 import { ToastNotification } from "../../Utils/CustomFunctions/ToastNotification";
 import { YupObject, nameSchema } from "../../Utils/Validation/ValidationSchemas";
@@ -20,7 +20,7 @@ const FormShipping = ({ open, setActive, shippingData, refetch: shippingRefetch 
     refetch,
     data,
     isLoading: countryLoader,
-  } = useQuery([country], () => request({ url: country }, router), {
+  } = useQuery([countryV1], () => request({ url: countryV1 }, router), {
     refetchOnWindowFocus: false,
     select: (res) => res.data.map((country) => ({ id: country.id, name: country.name })),
   });

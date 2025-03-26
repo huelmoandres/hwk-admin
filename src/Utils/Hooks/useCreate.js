@@ -1,11 +1,12 @@
 import { useMutation } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import request from "../AxiosUtils";
+import { requestV1 } from "../AxiosUtils";
 import SuccessHandle from "../CustomFunctions/SuccessHandle";
 import { ToastNotification } from "../CustomFunctions/ToastNotification";
+import { usersV1 } from "@/Utils/AxiosUtils/API";
+import { useInvalidateQueries } from "@/Utils/Hooks/useInvalidateQueries";
 
 const useCreate = (
-  url,
   updateId,
   path = false,
   message,
@@ -16,16 +17,18 @@ const useCreate = (
 ) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { invalidateQueriesByString } = useInvalidateQueries();
   return useMutation(
     (data) =>
-      request(
+      requestV1(
         {
-          url: updateId ? `${url}/${Array.isArray(updateId) ? updateId.join("/") : updateId}` : url,
+          url: usersV1,
           data,
           method: "post",
           responseType: responseType ? responseType : "",
         },
-        router
+        router,
+        true
       ),
     {
       onSuccess: (resDta) => {
@@ -35,6 +38,7 @@ const useCreate = (
           !notHandler && SuccessHandle(resDta, router, path, message, pathname);
           extraFunction && extraFunction(resDta);
         }
+        invalidateQueriesByString(usersV1);
       },
       onError: (err) => {
         errFunction && errFunction(err);

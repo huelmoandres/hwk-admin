@@ -1,26 +1,19 @@
 "use client"
-import { emailSchema, passwordSchema, YupObject } from "../../Validation/ValidationSchemas"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { requestV1 } from "../../AxiosUtils"
-import { loginPath } from "../../AxiosUtils/API"
+import { logoutAPI } from "../../AxiosUtils/API";
 import { ToastNotification } from "../../CustomFunctions/ToastNotification"
 
-export const LogInSchema = YupObject({
-  email: emailSchema,
-  password: passwordSchema,
-})
-
-const useLogin = () => {
+const useLogout = () => {
   const router = useRouter()
 
   return useMutation(
-    (data) =>
+    () =>
       requestV1(
         {
-          url: loginPath,
-          method: "post",
-          data,
+          url: logoutAPI,
+          method: "post"
         },
         router,
       ),
@@ -33,4 +26,4 @@ const useLogin = () => {
   )
 }
 
-export default useLogin
+export default useLogout

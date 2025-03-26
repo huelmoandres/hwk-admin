@@ -4,7 +4,6 @@ import { FiPlus } from "react-icons/fi";
 import Btn from "../../Elements/Buttons/Btn";
 import Pluralize from "../../Utils/CustomFunctions/Pluralize";
 import NoSsr from "../../Utils/HOC/NoSsr";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import ImportExport from "./ImportExport";
 
 const TableTitle = ({
@@ -21,7 +20,6 @@ const TableTitle = ({
   const { t } = useTranslation("common");
   const router = useRouter();
   const pathname = usePathname();
-  const [create] = usePermissionCheck(["create"]);
   return (
     <div className="title-header option-title">
       <h5>{filterHeader?.customTitle ? t(filterHeader?.customTitle) : t(Pluralize(moduleName))}</h5>
@@ -35,7 +33,7 @@ const TableTitle = ({
       )}
       <NoSsr>
         {filterHeader?.customFilter && !showFilterDifferentPlace && filterHeader?.customFilter}
-        {create && !onlyTitle && (
+        {!onlyTitle && (
           <Btn
             className="align-items-center btn-theme add-button"
             title={t("Add") + " " + t(moduleName)}

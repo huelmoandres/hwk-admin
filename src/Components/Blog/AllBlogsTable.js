@@ -1,14 +1,12 @@
 import TableWarper from "../../Utils/HOC/TableWarper";
 import ShowTable from "../Table/ShowTable";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 
 const AllBlogsTable = ({ data, ...props }) => {
-  const [edit, destroy] = usePermissionCheck(["edit", "destroy"]);
   const headerObj = {
     checkBox: true,
     isSerialNo: false,
-    isOption: edit == false && destroy == false ? false : true,
-    noEdit: edit ? false : true,
+    isOption: true,
+    noEdit: true,
     optionHead: { title: "Action", show: "blog" },
     column: [
       { title: "Image", apiKey: "blog_thumbnail", sorting: true, sortBy: "desc", type: "image" },

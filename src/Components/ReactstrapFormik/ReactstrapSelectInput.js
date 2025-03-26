@@ -246,8 +246,8 @@ const ReactstrapSelectInput = ({
             ))}
           </ul>
           {props.inputprops?.setsearch
-            ? listOpt?.length <= 0 && "No Data"
-            : list?.length <= 0 && "No Data"}
+            ? listOpt?.length <= 0 && t("NoData")
+            : list?.length <= 0 && t("NoData")}
         </div>
         {touch && error && (
           <FormFeedback>

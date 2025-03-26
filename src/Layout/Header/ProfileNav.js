@@ -10,6 +10,7 @@ import Avatar from "../../Components/CommonComponent/Avatar";
 import ShowModal from "../../Elements/Alerts&Modals/Modal";
 import Btn from "../../Elements/Buttons/Btn";
 import AccountContext from "../../Helper/AccountContext";
+import useLogout from "@/Utils/Hooks/Auth/useLogout";
 
 const ProfileNav = () => {
   const { ref, isComponentVisible, setIsComponentVisible } = useOutsideDropdown(false);
@@ -21,15 +22,15 @@ const ProfileNav = () => {
   const isStateData =
     (accountContextData.image && Object?.keys(accountContextData.image).length > 0) ||
     accountContextData.image == "";
+  const { mutateLogout } = useLogout();
 
-  const handleLogout = () => {
-    Cookies.remove("uat");
-    Cookies.remove("ue");
-    Cookies.remove("account");
-    localStorage.removeItem("account");
-    localStorage.removeItem("role");
+  const handleLogout = async () => {
+    await mutateLogout();
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
     router.push(`/auth/login`);
   };
+
   return (
     <>
       <li className="profile-nav onhover-dropdown p-0 me-0">
@@ -49,7 +50,7 @@ const ProfileNav = () => {
               {accountContextData.name !== "" ? accountContextData.name : accountData?.name}
             </span>
             <p className="mb-0 mt-1">
-              {accountData ? accountData?.role?.name : t("Account")}
+              {accountData ? accountData?.role : t("Account")}
               <RiArrowDownSLine className="middle" />
             </p>
           </Media>

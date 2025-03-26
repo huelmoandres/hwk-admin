@@ -3,7 +3,6 @@ import { Approved, product } from "../../Utils/AxiosUtils/API";
 import TableWarper from "../../Utils/HOC/TableWarper";
 import ShowTable from "../Table/ShowTable";
 import Loader from "../CommonComponent/Loader";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import AccountContext from "../../Helper/AccountContext";
 
 import { useTranslation } from "react-i18next";
@@ -11,7 +10,6 @@ import { placeHolderImage } from "@/Data/CommonPath";
 
 const AllProductTable = ({ data, ...props }) => {
   const { t } = useTranslation("common");
-  const [edit, destroy] = usePermissionCheck(["edit", "destroy"]);
   const { role, setRole } = useContext(AccountContext);
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
@@ -22,8 +20,8 @@ const AllProductTable = ({ data, ...props }) => {
   }, []);
   const headerObj = {
     checkBox: true,
-    isOption: edit == false && destroy == false ? false : true,
-    noEdit: edit ? false : true,
+    isOption: true,
+    noEdit: true,
     isSerialNo: false,
     optionHead: { title: "Action", show: "product", type: "download", modalTitle: t("Download") },
     column: [

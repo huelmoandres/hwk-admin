@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { RiFilter3Line } from "react-icons/ri";
 import { Form, Input, Label } from "reactstrap";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import CalenderFilter from "./CalenderFilter";
 import MultipleFilter from "./MultipleFilter";
 import TableDeleteOption from "./TableDeleteOption";
@@ -28,10 +27,6 @@ const TableTop = (props) => {
     keyInPermission,
     advanceFilter,
   } = props;
-  const [edit, destroy] = usePermissionCheck(
-    ["edit", "destroy"],
-    keyInPermission ? keyInPermission : ""
-  );
   const { t } = useTranslation("common");
   const [input, setInput] = useState();
   const [showAdvanceFilter, setShowAdvanceFilter] = useState(true);
@@ -59,14 +54,14 @@ const TableTop = (props) => {
               <Label>
                 {t("Show")}:
                 <select className="form-control" onChange={(e) => setPaginate(e.target.value)}>
-                <option>2</option> <option>15</option> <option>25</option> <option>50</option> <option>100</option>
+                <option>15</option> <option>25</option> <option>50</option> <option>100</option>
                 </select>
               </Label>
               <span>{t("Itemsperpage")}</span>
-              {destroy && isCheck?.length > 0 && (
+              {isCheck?.length > 0 && (
                 <TableDeleteOption url={url} setIsCheck={setIsCheck} isCheck={isCheck} />
               )}
-              {edit && isCheck?.length > 0 && isReplicate && (
+              {isCheck?.length > 0 && isReplicate && (
                 <TableDuplicateOption
                   isReplicate={isReplicate}
                   url={url}

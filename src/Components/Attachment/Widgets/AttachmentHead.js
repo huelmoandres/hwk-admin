@@ -8,12 +8,10 @@ import Btn from "../../../Elements/Buttons/Btn";
 import request from "../../../Utils/AxiosUtils";
 import { attachmentDelete } from "../../../Utils/AxiosUtils/API";
 import SuccessHandle from "../../../Utils/CustomFunctions/SuccessHandle";
-import usePermissionCheck from "../../../Utils/Hooks/usePermissionCheck";
 import AttachmentModal from "./AttechmentModal";
 
 const AttachmentHead = ({ isattachment, state, dispatch, refetch }) => {
   const { t } = useTranslation("common");
-  const [create, destroy] = usePermissionCheck(["create", "destroy"]);
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const router = useRouter();
@@ -39,13 +37,11 @@ const AttachmentHead = ({ isattachment, state, dispatch, refetch }) => {
                 <li>
                   {t("selected")}({state.deleteImage.length})
                 </li>
-                {destroy && (
-                  <li onClick={() => setDeleteModal(true)}>
-                    <a href="#javascript">
-                      <RiDeleteBin2Line />
-                    </a>
-                  </li>
-                )}
+                <li onClick={() => setDeleteModal(true)}>
+                  <a href="#javascript">
+                    <RiDeleteBin2Line />
+                  </a>
+                </li>
                 <ShowModal
                   open={deleteModal}
                   close={false}
@@ -80,18 +76,16 @@ const AttachmentHead = ({ isattachment, state, dispatch, refetch }) => {
             </div>
           )}
         </div>
-        {create && (
-          <div className="right-options">
-            <ul>
-              <li>
-                <Btn className="btn btn-solid btn-theme" onClick={() => setModal(true)}>
-                  <RiAddLine />
-                  {t("AddMedia")}
-                </Btn>
-              </li>
-            </ul>
-          </div>
-        )}
+        <div className="right-options">
+          <ul>
+            <li>
+              <Btn className="btn btn-solid btn-theme" onClick={() => setModal(true)}>
+                <RiAddLine />
+                {t("AddMedia")}
+              </Btn>
+            </li>
+          </ul>
+        </div>
       </div>
       <AttachmentModal modal={modal} setModal={setModal} isattachment={isattachment} noAPICall />
     </>

@@ -1,5 +1,5 @@
-export const fallbackLng = "en";
-export const languages = [fallbackLng, , "ar", "fr", "es"];
+export const fallbackLng = "es";
+export const languages = [fallbackLng, "en"];
 export const defaultNS = "translation";
 
 export function getOptions(lng = fallbackLng, ns = defaultNS) {

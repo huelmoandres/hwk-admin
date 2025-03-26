@@ -6,17 +6,17 @@ import useUpdate from "@/Utils/Hooks/useUpdate";
 
 const UserUpdate = ({ params }) => {
   const { mutate, isLoading } = useUpdate(
-    user,
     params?.updateId,
     `/user`,
-    "user updated successfully"
+    "Usuario actualizado correctamente"
   );
+
   return (
     params?.updateId && (
       <FormWrapper title="EditUser">
         <UserForm
           mutate={mutate}
-          updateId={params?.updateId}
+          updateId={params.updateId}
           loading={isLoading}
           buttonName="Update"
         />
