@@ -1,14 +1,11 @@
 import TableWarper from "../../Utils/HOC/TableWarper";
 import ShowTable from "../Table/ShowTable";
 import Loader from "../CommonComponent/Loader";
-import usePermissionCheck from "@/Utils/Hooks/usePermissionCheck";
 
 const AllReviewsTable = ({ data, ...props }) => {
-  const [destroy] = usePermissionCheck(["destroy"]);
-
   const headerObj = {
     checkBox: true,
-    isOption: destroy == false ? false : true,
+    isOption: true,
     optionHead: { title: "Action" },
     isSerialNo: false,
     column: [

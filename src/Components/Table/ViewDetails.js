@@ -4,12 +4,10 @@ import { RiEyeLine } from "react-icons/ri";
 import ShowModal from "../../Elements/Alerts&Modals/Modal";
 import Btn from "../../Elements/Buttons/Btn";
 import BadgeContext from "../../Helper/BadgeContext";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import ViewDetailBody from "./ViewDetailBody";
 
 const ViewDetails = ({ fullObj, tableData }) => {
   const [loadingState, setLoadingState] = useState("");
-  const [action] = usePermissionCheck(["action"], tableData?.permissionKey);
   const router = useRouter();
   const pathname = usePathname();
   const { state, dispatch } = useContext(BadgeContext);
@@ -39,7 +37,7 @@ const ViewDetails = ({ fullObj, tableData }) => {
         setModal={setModal}
         buttons={
           <>
-            {action && fullObj?.status == "pending" && (
+            {fullObj?.status == "pending" && (
               <>
                 <Btn
                   title="Rejected"

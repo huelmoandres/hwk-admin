@@ -2,14 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { Field } from "formik";
 import { Col } from "reactstrap";
 import request from "../../Utils/AxiosUtils";
-import { country } from "../../Utils/AxiosUtils/API";
+import { countryV1 } from "../../Utils/AxiosUtils/API";
 import SearchableSelectInput from "../InputFields/SearchableSelectInput";
 import { ReactstrapInput } from "../ReactstrapFormik";
 import { useRouter } from "next/navigation";
 
 const UserAddress = ({ values }) => {
   const router = useRouter();
-  const { data } = useQuery([country], () => request({ url: country }, router), {
+  const { data } = useQuery([countryV1], () => request({ url: countryV1 }, router), {
     refetchOnWindowFocus: false,
     select: (res) =>
       res.data.map((country) => ({ id: country.id, name: country.name, state: country.state })),

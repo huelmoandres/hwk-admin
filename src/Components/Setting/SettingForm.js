@@ -10,13 +10,11 @@ import { SettingTabTitleListData } from "../../Data/TabTitleListData";
 import Btn from "../../Elements/Buttons/Btn";
 import request from "../../Utils/AxiosUtils";
 import { setting } from "../../Utils/AxiosUtils/API";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import { YupObject, emailSchema, nameSchema } from "../../Utils/Validation/ValidationSchemas";
 import AllTabs from "./AllTabs";
 
 const SettingForm = ({ mutate, loading, title }) => {
   const { t } = useTranslation("common");
-  const [edit] = usePermissionCheck(["edit"]);
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("1");
   const { data, isLoading, refetch } = useQuery(

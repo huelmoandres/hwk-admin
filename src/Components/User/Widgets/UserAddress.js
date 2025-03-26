@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "../../../Utils/AxiosUtils";
-import { country } from "../../../Utils/AxiosUtils/API";
+import { countryV1 } from "@/Utils/AxiosUtils/API";
 import CheckBoxField from "../../InputFields/CheckBoxField";
 import SearchableSelectInput from "../../InputFields/SearchableSelectInput";
 import SimpleInputField from "../../InputFields/SimpleInputField";
@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 const UserAddress = ({ addAddress, type }) => {
   const router = useRouter();
   const { t } = useTranslation("common");
-  const { data } = useQuery([country], () => request({ url: country }, router), {
+  const { data } = useQuery([countryV1], () => request({ url: countryV1 }, router), {
     enabled: addAddress ? true : false,
     refetchOnWindowFocus: false,
     select: (res) =>
@@ -78,7 +78,7 @@ const UserAddress = ({ addAddress, type }) => {
           <SimpleInputField
             nameList={[
               { name: "address[0][pincode]", title: "Pincode" },
-              { name: "phone", type: "number", placeholder: "Enter Phone Number" },
+              { name: "phoneNumber", type: "number", placeholder: "Enter Phone Number" },
             ]}
           />
           <CheckBoxField name="address[0][is_default]" title="Is_Default" />

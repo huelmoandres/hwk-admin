@@ -165,7 +165,9 @@
   "Submit": "Enviar",
   "No": "No",
   "Name": "Nombre",
+  "IsActive": "Estado",
   "LastName": "Apellido",
+  "BirthDate": "Fecha de nacimiento",
   "CreateAt": "Creado en",
   "UpdateAt": "Actualizado en",
   "Options": "Opciones",
@@ -545,6 +547,8 @@
   "PaypalEmail": "Correo electrónico de Paypal",
   "EnterPaypalEmail": "Ingrese el correo electrónico de Paypal",
   "EnterName": "Ingrese el nombre",
+  "EnterLastName": "Ingrese el apellido",
+  "EnterBirthDate": "Ingrese la fecha de nacimiento",
   "EnterMinValue": "Ingrese el valor mínimo",
   "EnterMaxValue": "Ingresar Valor Máximo",
   "EnterAmount": "Ingresar Cantidad",
@@ -1207,5 +1211,6 @@
   "AddValue": "Agregar Valor",
   "Testemail": "Correo de Prueba",
   "MeasurementId": "ID de Medición",
-  "SortBydesc": "Ordenar Descendente"
+  "SortBydesc": "Ordenar Descendente",
+  "NoData": "Sin resultados"
 }

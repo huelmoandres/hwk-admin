@@ -3,7 +3,7 @@ import SimpleInputField from "../../InputFields/SimpleInputField";
 import SearchableSelectInput from "../../InputFields/SearchableSelectInput";
 import { Form, Formik } from "formik";
 import { YupObject, nameSchema, phoneSchema } from "@/Utils/Validation/ValidationSchemas";
-import { country } from "@/Utils/AxiosUtils/API";
+import { countryV1 } from "@/Utils/AxiosUtils/API";
 import { useQuery } from "@tanstack/react-query";
 import request from "@/Utils/AxiosUtils";
 import Btn from "@/Elements/Buttons/Btn";
@@ -14,8 +14,8 @@ import { useRouter } from "next/navigation";
 const CommonAddressForm = ({ type, updateId, setModal }) => {
   const router = useRouter();
   const { data, refetch, isLoading } = useQuery(
-    [country],
-    () => request({ url: country }, router),
+    [countryV1],
+    () => request({ url: countryV1 }, router),
     {
       enabled: false,
       refetchOnWindowFocus: false,

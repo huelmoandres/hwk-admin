@@ -4,7 +4,7 @@ export const register = "register";
 export const forgotPassword = "forgot-password";
 export const verifyToken = "verify-token";
 export const updatePassword = "update-password";
-export const LogoutAPI = "/logout";
+export const logoutAPI = "auth/logout";
 
 // self data (get)
 export const selfData = "/self";
@@ -45,7 +45,7 @@ export const theme = "/theme";
 export const store = "/store";
 
 // country api
-export const country = "/country";
+export const countryV1 = "/countries";
 
 // state api
 export const state = "/state";

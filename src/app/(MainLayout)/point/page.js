@@ -3,7 +3,6 @@ import SelectUser from "@/Components/Wallet/SelectUser";
 import SeleteWalletPrice from "@/Components/Wallet/SeleteWalletPrice";
 import UserTransationsTable from "@/Components/Wallet/UserTransationsTable";
 import { PointUserTransations } from "@/Utils/AxiosUtils/API";
-import usePermissionCheck from "@/Utils/Hooks/usePermissionCheck";
 import { YupObject, nameSchema } from "@/Utils/Validation/ValidationSchemas";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
@@ -13,7 +12,6 @@ import { Col, Row } from "reactstrap";
 
 const Point = () => {
   const [isValue, setIsValue] = useState("");
-  const [credit, debit] = usePermissionCheck(["credit", "debit"]);
   const { t } = useTranslation("common");
   const refRefetch = useRef();
 
@@ -27,11 +25,7 @@ const Point = () => {
         }}
         validationSchema={YupObject({ consumer_id: nameSchema })}
         onSubmit={(values, { setFieldValue }) => {
-          if (isValue == "credit") {
-            // Put your logic here
-          } else {
-            // Put your logic here
-          }
+
           setFieldValue("balance", "");
         }}
       >
@@ -56,8 +50,8 @@ const Point = () => {
                   description={t("PointBalance")}
                   selectUser={"consumer_id"}
                   icon={<RiCoinsLine />}
-                  isCredit={credit}
-                  isDebit={debit}
+                  isCredit={true}
+                  isDebit={true}
                 />
               </Row>
             </Form>

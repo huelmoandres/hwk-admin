@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiPencilLine } from "react-icons/ri";
 import NoSsr from "../../Utils/HOC/NoSsr";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import AnswerModal from "../Q&A/Widgets/AnswerModal";
 import DeleteButton from "./DeleteButton";
 import ViewDetails from "./ViewDetails";
@@ -19,10 +18,7 @@ const Options = ({
 }) => {
   const pathname = usePathname();
   const [modal, setModal] = useState(false);
-  const [edit, destroy] = usePermissionCheck(
-    ["edit", "destroy"],
-    keyInPermission ?? keyInPermission
-  );
+
   return (
     <div className="custom-ul">
       <NoSsr>
@@ -35,29 +31,28 @@ const Options = ({
         ) : (
           <>
             <div>
-              {keyInPermission == "question_and_answer" && edit ? (
+              {keyInPermission == "question_and_answer" ? (
                 <a onClick={() => setModal(true)}>
                   <RiPencilLine />
                 </a>
               ) : (
-                edit &&
-                fullObj?.id &&
+                fullObj?.slug &&
                 !optionPermission?.noEdit && (
                   <>
                     {optionPermission?.editRedirect ? (
-                      <Link href={`/` + optionPermission?.editRedirect + "/edit/" + fullObj.id}>
+                      <Link href={`/` + optionPermission?.editRedirect + "/edit/" + fullObj.slug}>
                         <RiPencilLine />
                       </Link>
                     ) : type == "post" && moduleName?.toLowerCase() == "tag" ? (
-                      <Link href={`/${pathname.split("/")[1]}/tag/edit/${fullObj.id}`}>
+                      <Link href={`/${pathname.split("/")[1]}/tag/edit/${fullObj.slug}`}>
                         <RiPencilLine />
                       </Link>
                     ) : type == "post" ? (
-                      <Link href={`/${pathname.split("/")[1]}/category/edit/${fullObj.id}`}>
+                      <Link href={`/${pathname.split("/")[1]}/category/edit/${fullObj.slug}`}>
                         <RiPencilLine />
                       </Link>
                     ) : (
-                      <Link href={`/${pathname.split("/")[1]}/edit/${fullObj.id}`}>
+                      <Link href={`/${pathname.split("/")[1]}/edit/${fullObj.slug}`}>
                         <RiPencilLine />
                       </Link>
                     )}
@@ -66,8 +61,8 @@ const Options = ({
               )}
             </div>
             <div>
-              {destroy && !optionPermission?.noDelete && (
-                <DeleteButton id={fullObj?.id} mutate={mutate} />
+              {!optionPermission?.noDelete && (
+                <DeleteButton id={fullObj?.slug} mutate={mutate} />
               )}
             </div>
           </>

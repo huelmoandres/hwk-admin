@@ -23,7 +23,11 @@ const Login = () => {
   const { mutate: loginMutate, isLoading } = useLogin();
 
   const handleSubmit = (form) => {
-    loginMutate(form);
+    loginMutate(form, {
+      onSuccess: () => {
+        setTimeout(() => router.push("/dashboard"), 1000);
+      }
+    });
   };
 
   return (

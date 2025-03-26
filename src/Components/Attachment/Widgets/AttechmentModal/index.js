@@ -10,7 +10,6 @@ import { selectImageReducer } from "../../../../Utils/AllReducers";
 import request from "../../../../Utils/AxiosUtils";
 import { attachment, createAttachment } from "../../../../Utils/AxiosUtils/API";
 import useCreate from "../../../../Utils/Hooks/useCreate";
-import usePermissionCheck from "../../../../Utils/Hooks/usePermissionCheck";
 import { YupObject, requiredSchema } from "../../../../Utils/Validation/ValidationSchemas";
 import FileUploadBrowser from "../../../InputFields/FileUploadBrowser";
 import TableBottom from "../../../Table/TableBottom";
@@ -36,7 +35,6 @@ const AttachmentModal = (props) => {
     selectedImage,
     paramsProps,
   } = props;
-  const [create] = usePermissionCheck(["create"], "attachment");
   const { t } = useTranslation("common");
   const [tabNav, setTabNav] = useState(1);
   const [search, setSearch] = useState("");
@@ -147,66 +145,64 @@ const AttachmentModal = (props) => {
             }
           </TabPane>
         )}
-        {create && (
-          <TabPane className={tabNav == 2 ? "fade active show" : ""} id="select">
-            {
-              <div className="content-section drop-files-sec">
-                <div>
-                  <RiUploadCloud2Line />
-                  <Formik
-                    initialValues={{ attachments: "" }}
-                    validationSchema={YupObject({ attachments: requiredSchema })}
-                    onSubmit={(values, { resetForm }) => {
-                      let formData = new FormData();
-                      Object.values(values.attachments).forEach((el, i) => {
-                        formData.append(`attachments[${i}]`, el);
-                      });
-                      !redirectToTabs && setModal(false);
-                      redirectToTabs && setTabNav(1);
-                      // Put Add Or Update Logic HereresetForm()
-                    }}
-                  >
-                    {({ values, setFieldValue, errors }) => (
-                      <Form className="theme-form theme-form-2 mega-form">
-                        <div>
-                          <div className="dflex-wgap justify-content-center ms-auto save-back-button">
-                            <h2>
-                              {t("Dropfilesherepaste")} <span>{t("or")}</span>
-                              <FileUploadBrowser
-                                errors={errors}
-                                id="attachments"
-                                name="attachments"
-                                type="file"
-                                multiple={true}
-                                values={values}
-                                setFieldValue={setFieldValue}
-                                dispatch={dispatch}
-                                accept="*/*"
-                              />
-                            </h2>
-                          </div>
+        <TabPane className={tabNav == 2 ? "fade active show" : ""} id="select">
+          {
+            <div className="content-section drop-files-sec">
+              <div>
+                <RiUploadCloud2Line />
+                <Formik
+                  initialValues={{ attachments: "" }}
+                  validationSchema={YupObject({ attachments: requiredSchema })}
+                  onSubmit={(values, { resetForm }) => {
+                    let formData = new FormData();
+                    Object.values(values.attachments).forEach((el, i) => {
+                      formData.append(`attachments[${i}]`, el);
+                    });
+                    !redirectToTabs && setModal(false);
+                    redirectToTabs && setTabNav(1);
+                    // Put Add Or Update Logic HereresetForm()
+                  }}
+                >
+                  {({ values, setFieldValue, errors }) => (
+                    <Form className="theme-form theme-form-2 mega-form">
+                      <div>
+                        <div className="dflex-wgap justify-content-center ms-auto save-back-button">
+                          <h2>
+                            {t("Dropfilesherepaste")} <span>{t("or")}</span>
+                            <FileUploadBrowser
+                              errors={errors}
+                              id="attachments"
+                              name="attachments"
+                              type="file"
+                              multiple={true}
+                              values={values}
+                              setFieldValue={setFieldValue}
+                              dispatch={dispatch}
+                              accept="*/*"
+                            />
+                          </h2>
                         </div>
-                        <div className="modal-footer">
-                          {values?.attachments?.length > 0 && (
-                            <a href="#javascript" onClick={() => setFieldValue("attachments", "")}>
-                              {t("Clear")}
-                            </a>
-                          )}
-                          <Btn
-                            type="submit"
-                            className="ms-auto"
-                            title="Insert Media"
-                            loading={Number(isLoading)}
-                          />
-                        </div>
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
+                      </div>
+                      <div className="modal-footer">
+                        {values?.attachments?.length > 0 && (
+                          <a href="#javascript" onClick={() => setFieldValue("attachments", "")}>
+                            {t("Clear")}
+                          </a>
+                        )}
+                        <Btn
+                          type="submit"
+                          className="ms-auto"
+                          title="Insert Media"
+                          loading={Number(isLoading)}
+                        />
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
-            }
-          </TabPane>
-        )}
+            </div>
+          }
+        </TabPane>
       </TabContent>
     </ShowModal>
   );

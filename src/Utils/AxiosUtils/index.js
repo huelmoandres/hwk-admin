@@ -5,12 +5,8 @@ import Cookies from "js-cookie";
 // Función para limpiar la sesión
 const clearSession = (router) => {
   try {
-    Cookies.remove("uat");
-    Cookies.remove("ue");
-    Cookies.remove("account");
     Cookies.remove("access_token");
     Cookies.remove("refresh_token");
-    localStorage.clear();
     if (router) {
       router.push("/auth/login");
     }
@@ -36,30 +32,28 @@ const clientV1 = axios.create({
 });
 
 const request = async ({ ...options }, router) => {
-  client.defaults.headers.common.Authorization = `Bearer ${getCookie("uat")}`;
   const onSuccess = (response) => response;
   const onError = (error) => {
     if (error?.response?.status == 401) {
-      Cookies.remove("uat");
-      Cookies.remove("ue");
-      Cookies.remove("account");
-      localStorage.clear();
-      router && router.push("/auth/login");
+      clearSession(router);
     }
     return error;
   };
   try {
     const response = await client(options);
-    return onSuccess(response);
+    return onSuccess(response.data);
   } catch (error) {
     return onError(error);
   }
 };
 
-export const requestV1 = async ({ ...options }, router) => {
+export const requestV1 = async ({ ...options }, router, completeData = false) => {
   try {
     const response = await clientV1(options);
-    return response;
+    if (completeData) {
+      return response;
+    }
+    return response.data;
   } catch (error) {
     if (error?.response?.status === 401) {
       clearSession(router);

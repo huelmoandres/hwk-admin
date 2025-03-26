@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import request from "../../Utils/AxiosUtils";
-import { country } from "../../Utils/AxiosUtils/API";
+import { countryV1 } from "../../Utils/AxiosUtils/API";
 import SearchableSelectInput from "./SearchableSelectInput";
 import SimpleInputField from "./SimpleInputField";
 import Loader from "../CommonComponent/Loader";
@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 const AddressComponent = ({ values, noAddress }) => {
   const router = useRouter();
   const { t } = useTranslation("common");
-  const { data, isLoading } = useQuery([country], () => request({ url: country }, router), {
+  const { data, isLoading } = useQuery([countryV1], () => request({ url: countryV1 }, router), {
     refetchOnWindowFocus: false,
     select: (res) =>
       res.data.map((country) => ({ id: country.id, name: country.name, state: country.state })),

@@ -5,12 +5,12 @@ import { FormGroup, Input, Label } from "reactstrap";
 import ShowModal from "../../Elements/Alerts&Modals/Modal";
 import Btn from "../../Elements/Buttons/Btn";
 
-const Status = ({ url, data, disabled, apiKey }) => {
+const Status = ({ data, disabled, apiKey }) => {
   const { t } = useTranslation("common");
   const [status, setStatus] = useState(false);
   const [modal, setModal] = useState(false);
   useEffect(() => {
-    setStatus(Boolean(Number(apiKey ? data[apiKey] : data.status)));
+    setStatus(Boolean(Number(apiKey ? data[apiKey] : data.isActive)));
   }, [data, disabled]);
 
   const handleClick = (value) => {

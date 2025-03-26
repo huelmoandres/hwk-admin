@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import { Row } from "reactstrap";
 import FormBtn from "../../Elements/Buttons/FormBtn";
-import request from "../../Utils/AxiosUtils";
+import { requestV1 } from "@/Utils/AxiosUtils";
 import {
   emailSchema,
   nameSchema,
@@ -11,86 +11,79 @@ import {
   passwordSchema,
   phoneSchema,
   YupObject,
-} from "../../Utils/Validation/ValidationSchemas";
+} from "@/Utils/Validation/ValidationSchemas";
 import Loader from "../CommonComponent/Loader";
-import UserAddress from "./Widgets/UserAddress";
 import CreateUser from "./Widgets/CreateUser";
 import { useRouter } from "next/navigation";
+import { countryV1, usersV1 } from "@/Utils/AxiosUtils/API";
 
 const UserForm = ({
   mutate,
   loading,
   updateId,
-  fixedRole,
-  noRoleField,
-  addAddress,
-  type,
   buttonName,
 }) => {
   const router = useRouter();
   const {
-    data: rolesData,
-    isLoading: roleLoading,
-    refetch: RoleRefetch,
-  } = useQuery(["/role"], () => request({ url: "/role" }, router), {
-    refetchOnMount: false,
-    enabled: false,
-    select: (data) => data?.data?.data?.filter((elem) => elem.id !== 1 && elem.id !== 3),
-  });
-
+    data: countries,
+    isLoading: countriesLoading
+  } = useQuery([countryV1], () => requestV1({ url: `${countryV1}` }, router));
   const {
     data: oldData,
     isLoading: oldDataLoading,
     refetch,
-  } = useQuery([updateId], () => request({ url: `/user/${updateId}` }, router), {
-    enabled: false,
-    refetchOnWindowFocus: false,
+  } = useQuery(["users", updateId], () => requestV1({ url: `${usersV1}/${updateId}` }, router), {
+    enabled: false
   });
+
   useEffect(() => {
     if (updateId) {
       refetch();
     }
   }, [updateId]);
-  useEffect(() => {
-    !fixedRole && RoleRefetch();
-  }, []);
-  if (roleLoading && updateId && oldDataLoading) return <Loader />;
+
+  const handleSubmit = async (values) => {
+    await mutate({
+      ...values,
+      phoneNumber: values.phoneNumber?.toString()
+    });
+  };
+
+  if (updateId && (oldDataLoading || countriesLoading)) return <Loader />;
+
   return (
     <Formik
       enableReinitialize
       initialValues={{
         name: updateId ? oldData?.data?.name || "" : "",
+        lastName: updateId ? oldData?.data?.lastName || "" : "",
         email: updateId ? oldData?.data?.email || "" : "",
-        phone: updateId ? Number(oldData?.data?.phone) || "" : "",
+        phoneNumber: updateId ? Number(oldData?.data?.phoneNumber) || "" : "",
         password: "",
         password_confirmation: "",
-        role_id: updateId ? Number(oldData?.data?.role?.id) || "" : fixedRole ? 2 : "",
-        status: updateId ? Boolean(Number(oldData?.data?.status)) : true,
-        address: [],
-        country_code: updateId ? oldData?.data?.country_code || "" : "91",
+        role: updateId ? oldData?.data?.role || "" : "admin",
+        isActive: updateId ? Boolean(oldData?.data?.isActive) : true,
+        phoneCode: updateId ? oldData?.data?.phoneCode || 598 : 598,
+        birthDate: updateId ? oldData?.data?.birthDate || null : null,
+        country: updateId ? oldData?.data?.country?.id || 858 : 858,
       }}
       validationSchema={YupObject({
         name: nameSchema,
+        lastName: nameSchema,
         email: emailSchema,
-        phone: phoneSchema,
+        phoneNumber: phoneSchema,
+        phoneCode: nameSchema,
         password: !updateId && passwordSchema,
         password_confirmation: !updateId && passwordConfirmationSchema,
-        role_id: noRoleField ? null : nameSchema,
+        role: nameSchema,
+        country: nameSchema,
       })}
-      onSubmit={(values) => {
-        // Put Add Or Update Logic Here
-        router.push(`/user`);
-      }}
+      onSubmit={handleSubmit}
     >
       {({ values }) => (
         <Form className="theme-form theme-form-2 mega-form">
           <Row>
-            {!addAddress && (
-              <>
-                <CreateUser updateId={updateId} rolesData={rolesData} fixedRole={fixedRole} />
-              </>
-            )}
-            <UserAddress addAddress={addAddress} type={type} />
+            <CreateUser updateId={updateId} countries={countries?.data} />
             <FormBtn loading={loading} buttonName={buttonName} />
           </Row>
         </Form>

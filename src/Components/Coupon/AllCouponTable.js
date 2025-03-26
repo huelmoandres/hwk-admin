@@ -1,13 +1,11 @@
 import TableWarper from "../../Utils/HOC/TableWarper";
 import ShowTable from "../Table/ShowTable";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 
 const AllCouponTable = ({ data, ...props }) => {
-  const [edit, destroy] = usePermissionCheck(["edit", "destroy"]);
   const headerObj = {
     checkBox: true,
-    isOption: edit == false && destroy == false ? false : true,
-    noEdit: edit ? false : true,
+    isOption: true,
+    noEdit: true,
     isSerialNo: false,
     optionHead: { title: "Action" },
     column: [

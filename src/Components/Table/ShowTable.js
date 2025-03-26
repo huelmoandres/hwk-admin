@@ -6,7 +6,6 @@ import { Rating } from "react-simple-star-rating";
 import { Input, Table } from "reactstrap";
 import SettingContext from "../../Helper/SettingContext";
 import { dateFormate, dateWithOnlyMonth } from "../../Utils/CustomFunctions/DateFormate";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
 import Avatar from "../CommonComponent/Avatar";
 import NoDataFound from "../CommonComponent/NoDataFound";
 import Options from "./Options";
@@ -33,17 +32,16 @@ const ShowTable = ({
 }) => {
   const { t } = useTranslation("common");
   const { convertCurrency } = useContext(SettingContext);
-  const [edit] = usePermissionCheck(["edit", "destroy"]);
   const [colSpann, setColSpann] = useState();
   const router = useRouter();
   const orignalDataLength = headerData?.data?.filter((elem) => elem.system_reserve == "1").length;
   /* Select All Data */
   const handleChange = (result) => {
-    if (isCheck?.includes(result.id)) {
+    if (isCheck?.includes(result.slug)) {
       let removeValue = [...isCheck];
-      removeValue.splice(removeValue.indexOf(result.id), 1);
+      removeValue.splice(removeValue.indexOf(result.slug), 1);
       setIsCheck(removeValue);
-    } else setIsCheck([...isCheck, result.id]);
+    } else setIsCheck([...isCheck, result.slug]);
   };
   /* Sorting Data */
   const handleSort = (title) => {
@@ -68,9 +66,9 @@ const ShowTable = ({
       if (headerData?.optionHead?.type == "View") {
         redirectLink ? redirectLink(tableData) : "";
       } else if (tableData.system_reserve !== "1" && headerData?.isOption) {
-        tableData?.id &&
+        tableData?.slug &&
           router.push(
-            `/${link ? link.toLowerCase() : moduleName.toLowerCase()}/edit/${tableData.id}`
+            `/${link ? link.toLowerCase() : moduleName.toLowerCase()}/edit/${tableData.slug}`
           );
       }
     }
@@ -104,7 +102,7 @@ const ShowTable = ({
                   disabled={orignalDataLength == headerData?.data?.length ? true : false}
                   onChange={(e) => {
                     e.target.checked
-                      ? setIsCheck([...headerData?.data?.map((item) => item.id)])
+                      ? setIsCheck([...headerData?.data?.map((item) => item.slug)])
                       : setIsCheck([]);
                   }}
                 />
@@ -146,7 +144,7 @@ const ShowTable = ({
                     className="custom-control-input checkbox_animated"
                     checked={
                       headerData?.data?.[index]?.system_reserve !== "1" &&
-                      isCheck?.includes(tableData?.id)
+                      isCheck?.includes(tableData?.slug)
                     }
                     disabled={headerData?.data?.[index]?.system_reserve == "1" ? true : false}
                     onChange={(e) => handleChange(tableData)}
@@ -193,13 +191,13 @@ const ShowTable = ({
                       />
                     ) : item.type == "switch" ? (
                       <>
-                        {!edit || headerData?.data?.[index].system_reserve == "1" ? (
+                        {headerData?.data?.[index].system_reserve == "1" ? (
                           <Status data={tableData} url={url} disabled={true} />
                         ) : (
                           <Status
                             data={tableData}
                             url={item.url ? item.url : url}
-                            apiKey={item.url && item.apiKey}
+                            apiKey={item.apiKey}
                           />
                         )}
                       </>
@@ -223,7 +221,7 @@ const ShowTable = ({
               </>
               {headerData?.isOption && (
                 <td>
-                  {headerData?.data?.[index]?.system_reserve == "1" ? (
+                  {!tableData.isActive ? (
                     <RiLock2Line />
                   ) : (
                     <Options

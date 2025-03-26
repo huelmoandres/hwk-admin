@@ -1,0 +1,8 @@
+{
+  "mlTotalProducts": "Total de productos en ML",
+  "mlActiveProducts": "Total de productos activos en ML",
+  "hwkProducts": "Total de productos en Hawkers",
+  "countRecentProducts": "Productos ingresados en los últimos 30 días",
+  "totalUsers": "Total de usuarios",
+  "activeUsers": "Total de usuarios activos en los últimos 30 días"
+}

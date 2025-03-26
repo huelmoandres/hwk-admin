@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useCookies } from "react-cookie";
 import AccountContext from ".";
-import request from "../../Utils/AxiosUtils";
-import { selfData } from "../../Utils/AxiosUtils/API";
+import request, { requestV1 } from "../../Utils/AxiosUtils";
+import { selfData, usersV1 } from "../../Utils/AxiosUtils/API";
 
 const AccountProvider = (props) => {
-  const [cookies] = useCookies(["uat"]);
-  const [role, setRole] = useState("");
-  const { data, isLoading } = useQuery([selfData], () => request({ url: selfData }), {
+  const [cookies] = useCookies(["access_token", "refresh_token"]);
+  const { data, isLoading } = useQuery(['usersMe'], () => requestV1({ url: `${usersV1}/me` }), {
     refetchOnWindowFocus: false,
     select: (res) => {
       return res?.data;
@@ -21,12 +20,8 @@ const AccountProvider = (props) => {
   });
 
   useEffect(() => {
-    if (data) {
-      localStorage.setItem("role", JSON.stringify(data?.role));
-      setRole(data?.role?.name);
-    }
     setAccountData(data);
-  }, [isLoading, cookies.uat]);
+  }, [isLoading, cookies.access_token, cookies.refresh_token]);
 
   return (
     <AccountContext.Provider
@@ -35,9 +30,7 @@ const AccountProvider = (props) => {
         accountData,
         setAccountData,
         accountContextData,
-        setAccountContextData,
-        role,
-        setRole,
+        setAccountContextData
       }}
     >
       {props.children}
