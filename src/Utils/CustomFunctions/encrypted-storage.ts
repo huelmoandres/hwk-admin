@@ -84,7 +84,6 @@ export async function setEncryptedItem(key: string, value: any): Promise<void> {
     const encryptedValue = await encrypt(value);
     localStorage.setItem(key, encryptedValue);
   } catch (error) {
-    console.error("Error encrypting data:", error);
     throw error;
   }
 }
@@ -96,7 +95,6 @@ export async function getEncryptedItem<T>(key: string): Promise<T | null> {
     if (!encryptedValue) return null;
     return (await decrypt(encryptedValue)) as T;
   } catch (error) {
-    console.error("Error decrypting data:", error);
     return null;
   }
 }

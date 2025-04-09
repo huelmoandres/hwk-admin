@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import AccountContext from ".";
 import request, { requestV1 } from "../../Utils/AxiosUtils";
 import { selfData, usersV1 } from "../../Utils/AxiosUtils/API";
+import { off } from "next/dist/client/components/react-dev-overlay/pages/bus";
 
 const AccountProvider = (props) => {
   const [cookies] = useCookies(["access_token", "refresh_token"]);
@@ -20,8 +21,10 @@ const AccountProvider = (props) => {
   });
 
   useEffect(() => {
-    setAccountData(data);
-  }, [isLoading, cookies.access_token, cookies.refresh_token]);
+    if (data) {
+      setAccountData(data);
+    }
+  }, [isLoading, data, cookies.access_token, cookies.refresh_token]);
 
   return (
     <AccountContext.Provider

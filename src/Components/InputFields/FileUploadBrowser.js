@@ -25,6 +25,7 @@ const FileUploadBrowser = ({ values, setFieldValue, dispatch, ...props }) => {
     }
     return dt.files;
   }
+
   function removeFileFromFileList(index) {
     const dt = new DataTransfer();
     const files = values[props.name];
@@ -35,13 +36,16 @@ const FileUploadBrowser = ({ values, setFieldValue, dispatch, ...props }) => {
     }
     return dt.files;
   }
+
   function ImageShow(fileDetail) {
     return fileDetail ? (
-      props.multiple ? (
         [...fileDetail]?.map((elem, i) => (
           <div key={i}>
             <div className="img-box">
-              {elem?.type == "image/png" ? (
+              {(elem?.type == "image/png" ||
+                elem?.type == "image/jpeg" ||
+                elem?.type == "image/gif" ||
+                elem?.type == "image/svg+xml") ? (
                 <Image
                   src={elem instanceof File ? URL.createObjectURL(elem) : elem}
                   className="img-fluid"
@@ -68,30 +72,11 @@ const FileUploadBrowser = ({ values, setFieldValue, dispatch, ...props }) => {
             </div>
           </div>
         ))
-      ) : (
-        <li>
-          <Image
-            src={fileDetail instanceof File ? URL.createObjectURL(fileDetail) : fileDetail}
-            className="img-fluid"
-            width={100}
-            height={100}
-            alt="image"
-          />
-          {fileDetail instanceof File && (
-            <p>
-              <RiCloseLine
-                className="remove-icon"
-                onClick={() => {
-                  setFieldValue(props.name, "");
-                }}
-              />
-            </p>
-          )}
-        </li>
-      )
     ) : null;
   }
   const onSelect = (event) => {
+    console.log(event.currentTarget.files);
+
     if (event.currentTarget.files.length > 5) {
       return ToastNotification("error", `You've reached 5 file maximum.`);
     } else {

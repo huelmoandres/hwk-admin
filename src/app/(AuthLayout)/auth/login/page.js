@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = (form) => {
     loginMutate(form, {
       onSuccess: () => {
-        setTimeout(() => router.push("/dashboard"), 1000);
+        router.push("/dashboard");
       }
     });
   };
@@ -37,11 +37,7 @@ const Login = () => {
         <div className="log-in-title text-center">
           <Image
             className="for-white"
-            src={
-              state?.setDarkLogo?.original_url
-                ? state?.setDarkLogo?.original_url
-                : "/assets/images/logo.png"
-            }
+            src={"/assets/images/settings/logo-dark.png"}
             alt="Light Logo"
             width={140}
             height={28}

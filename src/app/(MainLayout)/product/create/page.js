@@ -1,26 +1,48 @@
 "use client";
-import ProductForm from "@/Components/Product/ProductForm";
-import { product } from "@/Utils/AxiosUtils/API";
-import useCreate from "@/Utils/Hooks/useCreate";
-import { useState } from "react";
+import FormWrapper from "@/Utils/HOC/FormWrapper";
+import { useTranslation } from "react-i18next";
+import {
+  nameSchema,
+  YupObject,
+} from "@/Utils/Validation/ValidationSchemas";
+import { Form, Formik } from "formik";
+import { Row } from "reactstrap";
+import FormBtn from "@/Elements/Buttons/FormBtn";
+import React from "react";
+import SimpleInputField from "@/Components/InputFields/SimpleInputField";
+import useProductAdd from "@/Utils/Hooks/ml/useProductAdd";
 
-const ProductCreate = () => {
-  const [resetKey, setResetKey] = useState(false);
-  const { mutate, isLoading } = useCreate(product, false, product, false, (resDta) => {
-    if (resDta?.status == 200 || resDta?.status == 201) {
-      setResetKey(true);
-    }
-  });
+const AddNewUser = () => {
+  const { mutate, isLoading } = useProductAdd();
+  const { t } = useTranslation("common");
+
   return (
-    <ProductForm
-      values={resetKey}
-      mutate={mutate}
-      loading={isLoading}
-      title={"AddProduct"}
-      key={resetKey}
-      buttonName="Save"
-    />
+    <FormWrapper title="AddProduct">
+      <Formik
+        enableReinitialize
+        initialValues={{
+          mlId: "",
+        }}
+        validationSchema={YupObject({
+          mlId: nameSchema,
+        })}
+        onSubmit={(values) => mutate(values.mlId)}
+      >
+        {({ values }) => (
+          <Form className="theme-form theme-form-2 mega-form">
+            <Row>
+              <SimpleInputField
+                nameList={[
+                  { name: "mlId", placeholder: t("EnterMLID"), require: "true" },
+                ]}
+              />
+              <FormBtn loading={isLoading} buttonName={"AddProduct"} />
+            </Row>
+          </Form>
+        )}
+      </Formik>
+    </FormWrapper>
   );
 };
 
-export default ProductCreate;
+export default AddNewUser;

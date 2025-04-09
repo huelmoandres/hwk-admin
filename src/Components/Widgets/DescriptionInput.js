@@ -4,12 +4,14 @@ import { Col, Row } from "reactstrap";
 import CkEditorComponent from "../InputFields/CkEditorComponent";
 import { useTranslation } from "react-i18next";
 
-const DescriptionInput = ({ values, setFieldValue, nameKey, errorMessage, title, helpertext }) => {
+const DescriptionInput = ({ values, setFieldValue, nameKey, errorMessage, title, helpertext, disabled }) => {
   const { t } = useTranslation("common");
   const [editorLoaded, setEditorLoaded] = useState(false);
+
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
+
   return (
     <>
       <div className="input-error">
@@ -29,6 +31,7 @@ const DescriptionInput = ({ values, setFieldValue, nameKey, errorMessage, title,
               values={values}
               value={values[nameKey]}
               editorLoaded={editorLoaded}
+              disabled={disabled}
             />
             {helpertext && <p className="help-text">{helpertext}</p>}
           </Col>

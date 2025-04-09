@@ -1,24 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SettingContext from "../../../Helper/SettingContext";
+import { useDarkLightMode } from "@/Utils/Hooks/CustomHooks/useDarkLightMode";
 
 const Logo = () => {
-  const { state, settingObj } = useContext(SettingContext);
+  const [urlLogo, setUrlLogo] = useState(`/assets/images/settings/logo-white.png`);
+  const { settingObj, darkMode } = useContext(SettingContext);
+
+  useEffect(() => {
+    if (settingObj) {
+      setUrlLogo(darkMode ? settingObj.logoDarkPath : settingObj.logoLightPath);
+    }
+  }, [darkMode, settingObj]);
+
   return (
     <Link href="/dashboard">
-      {state?.setLightLogo?.original_url ? (
-        <Image
-          className="for-white"
-          src={`${state?.setLightLogo?.original_url}`}
-          alt="Light Logo"
-          width={1300}
-          height={500}
-          priority
-        />
-      ) : (
-        <h2 className="text-white">{settingObj?.general?.site_name || "Logo Here"}</h2>
-      )}
+      <Image
+        className="for-white"
+        src={urlLogo}
+        alt={darkMode ? "Dark Logo" : "Light Logo"}
+        width={1300}
+        height={500}
+        priority
+      />
     </Link>
   );
 };

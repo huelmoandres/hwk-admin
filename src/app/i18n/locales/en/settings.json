@@ -1,0 +1,48 @@
+{
+  "form": {
+    "formSiteName": "Name",
+    "formSiteDescription": "Description",
+    "formLogoDark": "Dark Logo",
+    "formLogoLight": "Light Logo",
+    "formFavicon": "Favicon",
+    "formPrimaryColor": "Primary Color",
+    "formSecondaryColor": "Secondary Color",
+    "formAccessoriesCategoryIds": "Accessories Categories",
+    "formGlassesCategoryIds": "Glasses Categories",
+    "formContactEmail": "Contact Email",
+    "formContactPhone": "Contact Phone",
+    "formContactAddress": "Contact Address",
+    "formFacebookUrl": "Facebook Link",
+    "formInstagramUrl": "Instagram Link",
+    "formTwitterUrl": "Twitter Link",
+    "formYoutubeUrl": "YouTube Link",
+    "formDefaultMetaTitle": "Default Meta Title",
+    "formDefaultMetaDescription": "Default Meta Description",
+    "formDefaultOgImagePath": "Default OG Image",
+
+    "placeholderSiteName": "Enter site name",
+    "placeholderSiteDescription": "Enter site description",
+    "placeholderPrimaryColor": "Select primary color",
+    "placeholderSecondaryColor": "Select secondary color",
+    "placeholderContactEmail": "Enter contact email",
+    "placeholderContactPhone": "Enter phone number",
+    "placeholderContactAddress": "Enter address",
+    "placeholderFacebookUrl": "Enter Facebook URL",
+    "placeholderInstagramUrl": "Enter Instagram URL",
+    "placeholderTwitterUrl": "Enter Twitter URL",
+    "placeholderYoutubeUrl": "Enter YouTube URL",
+    "placeholderDefaultMetaTitle": "Enter default meta title",
+    "placeholderDefaultMetaDescription": "Enter default meta description",
+    "placeholderDefaultOgImagePath": "Select default OG image"
+  },
+  "saveButton": "Save Settings",
+  "updateButton": "Update Settings",
+  "storeSaved": "Settings have been saved successfully!",
+  "storeUpdated": "Settings have been updated successfully!",
+  "tabs": {
+    "general": "General",
+    "emailConfiguration": "Email Configuration",
+    "socialNetworks": "Social Networks",
+    "pages": "Pages"
+  }
+}

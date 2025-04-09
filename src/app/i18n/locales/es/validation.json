@@ -1,0 +1,19 @@
+{
+  "requiredValidation": "El campo {{field}} es obligatorio y debe ser completado.",
+  "requiredPhoneWithCode": "Debes seleccionar un código de país e ingresar un número de teléfono.",
+  "minValidation": "El campo {{field}} debe tener un valor mínimo de {{min}}.",
+  "maxValidation": "El campo {{field}} debe tener un valor máximo de {{max}}.",
+  "minLengthValidation": "El campo {{field}} debe tener al menos {{min}} caracteres.",
+  "maxLengthValidation": "El campo {{field}} no puede tener más de {{max}} caracteres.",
+  "rangeValidation": "El campo {{field}} debe estar entre {{min}} y {{max}}.",
+  "exactLengthValidation": "El campo {{field}} debe tener exactamente {{length}} caracteres.",
+  "emailValidation": "El campo {{field}} debe ser un correo electrónico válido.",
+  "urlValidation": "El campo {{field}} debe ser una URL válida.",
+  "phoneValidation": "El campo {{field}} debe ser un número de teléfono válido.",
+  "numericValidation": "El campo {{field}} debe contener solo números.",
+  "integerValidation": "El campo {{field}} debe ser un número entero.",
+  "positiveValidation": "El campo {{field}} debe ser un número positivo.",
+  "dateValidation": "El campo {{field}} debe ser una fecha válida.",
+  "futureDate": "El campo {{field}} debe ser una fecha futura.",
+  "pastDate": "El campo {{field}} debe ser una fecha pasada."
+}

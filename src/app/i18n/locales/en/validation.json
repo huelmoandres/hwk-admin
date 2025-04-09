@@ -1,0 +1,19 @@
+{
+  "requiredValidation": "The field {{field}} is required and must be filled out.",
+  "requiredPhoneWithCode": "You must select a country code and enter a phone number.",
+  "minValidation": "The field {{field}} must have a minimum value of {{min}}.",
+  "maxValidation": "The field {{field}} must have a maximum value of {{max}}.",
+  "minLengthValidation": "The field {{field}} must be at least {{min}} characters long.",
+  "maxLengthValidation": "The field {{field}} cannot be more than {{max}} characters long.",
+  "rangeValidation": "The field {{field}} must be between {{min}} and {{max}}.",
+  "exactLengthValidation": "The field {{field}} must be exactly {{length}} characters long.",
+  "emailValidation": "The field {{field}} must be a valid email address.",
+  "urlValidation": "The field {{field}} must be a valid URL.",
+  "phoneValidation": "The field {{field}} must be a valid phone number.",
+  "numericValidation": "The field {{field}} must contain only numbers.",
+  "integerValidation": "The field {{field}} must be an integer.",
+  "positiveValidation": "The field {{field}} must be a positive number.",
+  "dateValidation": "The field {{field}} must be a valid date.",
+  "futureDate": "The field {{field}} must be a future date.",
+  "pastDate": "The field {{field}} must be a past date."
+}

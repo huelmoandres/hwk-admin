@@ -8,8 +8,8 @@ import { useTranslation } from "react-i18next";
 import { Card, Col, Row } from "reactstrap";
 import { SettingTabTitleListData } from "../../Data/TabTitleListData";
 import Btn from "../../Elements/Buttons/Btn";
-import request from "../../Utils/AxiosUtils";
-import { setting } from "../../Utils/AxiosUtils/API";
+import request, { requestV1 } from "../../Utils/AxiosUtils";
+import { settingsV1 } from "../../Utils/AxiosUtils/API";
 import { YupObject, emailSchema, nameSchema } from "../../Utils/Validation/ValidationSchemas";
 import AllTabs from "./AllTabs";
 
@@ -18,98 +18,44 @@ const SettingForm = ({ mutate, loading, title }) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("1");
   const { data, isLoading, refetch } = useQuery(
-    [setting],
-    () => request({ url: setting }, router),
+    [settingsV1],
+    () => requestV1({ url: settingsV1 }, router),
     { enabled: false, refetchOnWindowFocus: false, select: (res) => res.data }
   );
-  let IncludeList = [
-    "status",
-    "coupon_enable",
-    "point_enable",
-    "product_auto_approve",
-    "stock_product_hide",
-    "wallet_enable",
-    "same_day_delivery",
-    "is_category_based_commission",
-    "multivendor",
-    "sandbox_mode",
-    "store_auto_approve",
-    "maintenance_mode",
-  ];
-  const RecursiveSet = ({ data }) => {
-    if (data && typeof data == "object") {
-      Object.keys(data).forEach((key) => {
-        if (data[key] == 0 && IncludeList.includes(key)) {
-          data[key] = false;
-        } else if (data[key] == 1 && IncludeList.includes(key)) {
-          data[key] = true;
-        } else {
-          RecursiveSet({ data: data[key] });
-        }
-      });
-    }
-  };
+
   useEffect(() => {
     refetch();
   }, []);
 
-  let NewSettingsData = data?.values || {};
-  RecursiveSet({ data: NewSettingsData });
   if (isLoading && !data) return null;
 
-  const validationSchema = YupObject({
-    email: emailSchema,
-    values: YupObject({
-      general: YupObject({ site_title: nameSchema }),
-    }),
-  });
+  const validationSchema = YupObject({});
+
   return (
     <Formik
       validationSchema={validationSchema}
       initialValues={{
-        submitButtonClicked: false,
-        email: "",
-        start_date: NewSettingsData ? NewSettingsData?.start_date || new Date() : new Date(),
-        end_date: NewSettingsData ? NewSettingsData?.end_date || new Date() : new Date(),
-        media_disk: NewSettingsData?.media_configuration?.media_disk || "local",
-        light_logo_image: "",
-        light_logo_image_id: "",
-        dark_logo_image: "",
-        dark_logo_image_id: "",
-        tiny_logo_image: "",
-        tiny_logo_image_id: "",
-        favicon_image: "",
-        favicon_image_id: "",
-        values: NewSettingsData || {},
-        default_timezone: NewSettingsData?.general?.default_timezone || "Asia/Kolkata",
-        mail_mailer: NewSettingsData?.email?.mail_mailer || "smtp",
-        maintenance_image: "",
-        maintenance_image_id: "",
-        mail_encryption: NewSettingsData?.email?.mail_encryption || "",
+        siteName: data?.siteName ?? "",
+        siteDescription: data?.siteDescription ?? "",
+        logoLightPath: data?.logoLightPath ?? "",
+        logoDarkPath: data?.logoDarkPath ?? "",
+        faviconPath: data?.faviconPath ?? "",
+        primaryColor: data?.primaryColor ?? "",
+        secondaryColor: data?.secondaryColor ?? "",
+        contactEmail: data?.contactEmail ?? "",
+        contactPhone: data?.contactPhone ?? "",
+        contactAddress: data?.contactAddress ?? "",
+        facebookUrl: data?.facebookUrl ?? "",
+        instagramUrl: data?.instagramUrl ?? "",
+        twitterUrl: data?.twitterUrl ?? "",
+        youtubeUrl: data?.youtubeUrl ?? "",
+        defaultMetaTitle: data?.defaultMetaTitle ?? "",
+        defaultMetaDescription: data?.defaultMetaDescription ?? "",
+        accessoriesCategoryIds: data?.accessoriesCategories?.map((category) => category.id) ?? [],
+        glassesCategoryIds: data?.glassesCategories?.map((category) => category.id) ?? [],
       }}
       onSubmit={(values) => {
-        values["_method"] = "put";
-        values["values"]["maintenance"]["start_date"] = dateSubmitValue(values["start_date"]);
-        values["values"]["maintenance"]["end_date"] = dateSubmitValue(values["end_date"]);
-        values["values"]["general"]["default_timezone"] = values["default_timezone"];
-        values["values"]["email"]["mail_mailer"] = values["mail_mailer"];
-        values["values"]["email"]["mail_encryption"] = values["mail_encryption"];
-        values["values"]["general"]["light_logo_image_id"] = values["light_logo_image_id"]
-          ? values["light_logo_image_id"]
-          : "";
-        values["values"]["general"]["favicon_image_id"] = values["favicon_image_id"]
-          ? values["favicon_image_id"]
-          : "";
-        values["values"]["general"]["dark_logo_image_id"] = values["dark_logo_image_id"]
-          ? values["dark_logo_image_id"]
-          : "";
-        values["values"]["general"]["tiny_logo_image_id"] = values["tiny_logo_image_id"]
-          ? values["tiny_logo_image_id"]
-          : "";
-        values["values"]["maintenance"]["maintenance_image_id"] = values["maintenance_image_id"]
-          ? values["maintenance_image_id"]
-          : "";
-        // Put Your Logic Here
+        mutate(values);
       }}
     >
       {({ values, errors, touched, setFieldValue }) => (
@@ -124,7 +70,7 @@ const SettingForm = ({ mutate, loading, title }) => {
                   <TabTitle
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
-                    titleList={SettingTabTitleListData}
+                    titleList={SettingTabTitleListData(t)}
                     errors={errors}
                     touched={touched}
                   />

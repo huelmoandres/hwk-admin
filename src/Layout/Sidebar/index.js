@@ -9,6 +9,7 @@ import { getPermissionArray } from "@/Components/Common/getPermissonArray";
 const MenuList = dynamic(() => import("./MenuList"), {
   ssr: false,
 });
+
 const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState([]);
   const { role, setRole } = useContext(AccountContext);
@@ -21,6 +22,7 @@ const Sidebar = () => {
     }, 700);
     return () => clearTimeout(timer);
   }, []);
+
   useEffect(() => {
     let storedRole;
     const ISSERVER = typeof window === "undefined";

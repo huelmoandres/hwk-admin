@@ -13,8 +13,6 @@ import Status from "./Status";
 import TableLoader from "./TableLoader";
 
 const ShowTable = ({
-  current_page,
-  per_page,
   mutate,
   isCheck,
   setIsCheck,
@@ -73,6 +71,7 @@ const ShowTable = ({
       }
     }
   };
+
   // Geting Sub-objects data
   const getSubKeysData = (mainData, subKey) => {
     if (typeof mainData === "object" && subKey.length > 0) {
@@ -108,7 +107,6 @@ const ShowTable = ({
                 />
               </th>
             )}
-            {headerData.isSerialNo !== false && <th className="sm-width">{t("No")}</th>}
             {/* Table Heading */}
             {headerData?.column.map((elem, i) => (
               <th
@@ -152,11 +150,6 @@ const ShowTable = ({
                   />
                 </td>
               )}
-              {headerData.isSerialNo !== false && (
-                <td className="sm-width" onClick={(e) => isHandelEdit(e, headerData, tableData)}>
-                  {index + 1 + (current_page - 1) * per_page}
-                </td>
-              )}
               <>
                 {headerData?.column.map((item, i) => (
                   <td
@@ -175,7 +168,9 @@ const ShowTable = ({
                     ) : item.type == "image" ? (
                       <Avatar
                         imageClass="tbl-image"
-                        data={tableData[item?.apiKey]}
+                        data={{
+                          original_url: tableData[item?.apiKey]
+                        }}
                         placeHolder={item.placeHolderImage}
                         name={tableData}
                         NameWithRound={item.NameWithRound ? true : false}
@@ -221,7 +216,7 @@ const ShowTable = ({
               </>
               {headerData?.isOption && (
                 <td>
-                  {!tableData.isActive ? (
+                  {tableData.isActive === false ? (
                     <RiLock2Line />
                   ) : (
                     <Options

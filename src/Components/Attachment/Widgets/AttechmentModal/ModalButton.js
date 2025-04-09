@@ -11,10 +11,8 @@ const ModalButton = ({
   setFieldValue,
   tabNav,
   multiple,
-  mutate,
   isLoading,
-  showImage,
-  values,
+  showImage
 }) => {
   const { t } = useTranslation("common");
   const storeImageObject = name?.split("_id")[0];
@@ -25,7 +23,6 @@ const ModalButton = ({
         Object.values(state.setBrowserImage.attachments).forEach((el, i) => {
           formData.append(`attachments[${i}]`, el);
         });
-        // Put Add Or Update Logic Here
       }
     } else {
       if (multiple) {
@@ -35,30 +32,30 @@ const ModalButton = ({
             state.selectedImage &&
               setFieldValue(
                 name,
-                state.selectedImage.map((elemmm) => elemmm.id)
+                state.selectedImage.map((elemmm) => elemmm.asset_id)
               );
           });
       } else {
         if (state?.selectedImage?.length > 0) {
           if (showImage) {
-            setFieldValue(name, value[0]);
+            setFieldValue(name, value[0].secure_url);
           } else {
             setFieldValue(
               name,
               attachmentsData?.find((item) => {
-                return item.id == value[0]?.id;
+                return item.asset_id == value[0]?.asset_id;
               }).id
             );
             storeImageObject &&
               setFieldValue(
                 storeImageObject,
                 attachmentsData?.find((item) => {
-                  return item.id == value[0]?.id;
+                  return item.asset_id == value[0]?.asset_id;
                 })
               );
             setSelectedImage([
               attachmentsData?.find((item) => {
-                return item.id == value[0]?.id;
+                return item.asset_id == value[0]?.asset_id;
               }),
             ]);
           }

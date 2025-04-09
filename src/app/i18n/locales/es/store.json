@@ -1,0 +1,19 @@
+{
+  "form": {
+    "formName": "Nombre",
+    "formState": "Departamento",
+    "formAddress": "Dirección",
+    "formPhone": "Teléfono",
+    "formHours": "Horario",
+    "placeholderName": "Ingresar nombre de tienda",
+    "placeholderState": "Seleccionar departamento",
+    "placeholderAddress": "Ingresar dirección",
+    "placeholderPhone": "Ingresar teléfono de contacto",
+    "placeholderPhoneCode": "Seleccionar Código",
+    "placeholderHours": "Ingresar horario de atención"
+  },
+  "saveButton": "Guardar Tienda",
+  "updateButton": "Actualizar Tienda",
+  "storeSaved": "¡La tienda se ha guardado correctamente!",
+  "storeUpdated": "¡La tienda se ha actualizado correctamente!"
+}

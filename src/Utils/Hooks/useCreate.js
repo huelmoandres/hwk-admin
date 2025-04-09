@@ -3,13 +3,13 @@ import { usePathname, useRouter } from "next/navigation";
 import { requestV1 } from "../AxiosUtils";
 import SuccessHandle from "../CustomFunctions/SuccessHandle";
 import { ToastNotification } from "../CustomFunctions/ToastNotification";
-import { usersV1 } from "@/Utils/AxiosUtils/API";
 import { useInvalidateQueries } from "@/Utils/Hooks/useInvalidateQueries";
 
 const useCreate = (
-  updateId,
+  url,
   path = false,
   message,
+  invalidateQueriesPath,
   extraFunction,
   notHandler,
   responseType,
@@ -22,7 +22,7 @@ const useCreate = (
     (data) =>
       requestV1(
         {
-          url: usersV1,
+          url,
           data,
           method: "post",
           responseType: responseType ? responseType : "",
@@ -38,7 +38,9 @@ const useCreate = (
           !notHandler && SuccessHandle(resDta, router, path, message, pathname);
           extraFunction && extraFunction(resDta);
         }
-        invalidateQueriesByString(usersV1);
+        if (invalidateQueriesPath) {
+          invalidateQueriesByString(invalidateQueriesPath);
+        }
       },
       onError: (err) => {
         errFunction && errFunction(err);

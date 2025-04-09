@@ -3,11 +3,10 @@ import { ErrorMessage } from "formik";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { RiCloseLine } from "react-icons/ri";
-import { Input } from "reactstrap";
 import InputWrapper from "../../Utils/HOC/InputWrapper";
-import { handleModifier } from "../../Utils/Validation/ModifiedErrorMessage";
+import { handleModifier } from "@/Utils/Validation/ModifiedErrorMessage";
 import AttachmentModal from "../Attachment/Widgets/AttechmentModal";
+import { Input } from "reactstrap";
 
 const FileUploadField = ({
   values,
@@ -24,54 +23,22 @@ const FileUploadField = ({
   const { t } = useTranslation("common");
   const [modal, setModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState([]);
+
   useEffect(() => {
     if (values) {
-      multiple
-        ? setSelectedImage(values[storeImageObject])
-        : values[storeImageObject]
-          ? setSelectedImage(loading ? null : [values[storeImageObject]])
-          : values[props.name]
-            ? setSelectedImage([values[props.name]])
-            : setSelectedImage([]);
+      multiple ? setSelectedImage(values[storeImageObject]) : values[storeImageObject] ? setSelectedImage(loading ? null : [values[storeImageObject]]) : values[props.name] ? setSelectedImage([values[props.name]]) : setSelectedImage([]);
     }
   }, [values[storeImageObject], loading]);
-  useEffect(() => {
-    if (props?.uniquename) {
-      if (Array.isArray(props?.uniquename)) {
-        const onlyIds = props?.uniquename?.map((data) => data.id);
-        setSelectedImage(loading ? null : props?.uniquename);
-        setFieldValue(props?.name, onlyIds);
-      } else {
-        setSelectedImage(loading ? null : [props?.uniquename]);
-        setFieldValue(props?.name, props?.uniquename?.id);
-      }
-    }
-  }, [props?.uniquename, loading, showImage]);
-
-  const removeImage = (result) => {
-    if (props.name) {
-      if (multiple) {
-        let updatedImage = selectedImage.filter((elem) => elem.id !== result.id);
-        setSelectedImage(updatedImage);
-        setFieldValue(storeImageObject, updatedImage);
-      } else {
-        setFieldValue(
-          props?.name,
-          Array.isArray(values[props.name])
-            ? values[props.name].filter((el) => el !== result.id)
-            : null
-        );
-        setSelectedImage(selectedImage.filter((elem) => elem.id !== result.id));
-        setFieldValue(storeImageObject, "");
-      }
-    }
-  };
 
   const getMimeTypeImage = (result) => {
-    return (mimeImageMapping[result?.mime_type] ?? result?.original_url?.split("/")[1] == "storage")
-      ? result?.original_url
-      : result?.original_url;
+    if (typeof result === "string") {
+      return result;
+    }
+    return (mimeImageMapping[result?.mime_type] ?? result?.secureUrl?.split("/")[1] == "storage")
+      ? result?.secureUrl
+      : result?.secureUrl ?? result?.secure_url;
   };
+
   const ImageShow = () => {
     return (
       <>
@@ -86,9 +53,6 @@ const FileUploadField = ({
                   height={130}
                   width={130}
                 />
-                <p className="remove-icon">
-                  <RiCloseLine onClick={() => removeImage(result)} />
-                </p>
               </div>
               <h6>{result?.file_name}</h6>
             </li>
@@ -96,6 +60,7 @@ const FileUploadField = ({
       </>
     );
   };
+
   return (
     <>
       <ul className={`image-select-list`}>
@@ -108,13 +73,7 @@ const FileUploadField = ({
             }}
           />
           <label htmlFor={props.id}>
-            <Image
-              height={40}
-              width={40}
-              src={"/assets/images/add-image.png"}
-              className="img-fluid"
-              alt=""
-            />
+            <Image height={40} width={40} src={"/assets/images/add-image.png"} className="img-fluid" alt="" />
           </label>
         </li>
 

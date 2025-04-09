@@ -20,8 +20,18 @@ export const user = "user";
 export const UserImportAPI = "user/csv/import";
 export const UserExportAPI = "user/csv/export";
 
-//statistics api 
+//statistics api
 export const statisticsV1 = "statistics";
+
+//store api
+export const storesV1 = "stores";
+
+
+
+
+
+
+
 
 // attributes api
 export const attribute = "attribute";
@@ -34,21 +44,17 @@ export const TagImportAPI = "tag/csv/import";
 export const TagExportAPI = "tag/csv/export";
 
 // Categories api
+export const categoriesV1 = "ml/products/db/categories/all";
 export const Category = "/category";
-export const CategoryImportAPI = "category/csv/import";
-export const CategoryExportAPI = "category/csv/export";
 
 // themes api
 export const theme = "/theme";
-
-// store api
-export const store = "/store";
 
 // country api
 export const countryV1 = "/countries";
 
 // state api
-export const state = "/state";
+export const stateV1 = "/states";
 
 // blog api
 export const blog = "/blog";
@@ -60,7 +66,8 @@ export const tax = "/tax";
 export const coupon = "/coupon";
 
 // product api
-export const product = "/product";
+export const product = "product";
+export const productDb = "ml/products/db";
 export const Approved = "/approve";
 export const ProductImportAPI = "product/csv/import";
 export const ProductExportAPI = "product/csv/export";
@@ -72,14 +79,15 @@ export const shipping = "/shipping";
 export const shippingRule = "/shippingRule";
 
 // setting api
-export const setting = "/settings";
-export const updateSetting = "/settings";
+export const settingsV1 = "/admin/settings";
+export const updateSettingsV1 = "/admin/settings";
 
 // setting api
 export const checkout = "/checkout";
 
 // attachment api
-export const attachment = "/attachment";
+export const attachment = "/api/cloudinary/assets";
+export const createAttachmentV1 = "/api/cloudinary/upload";
 export const createAttachment = "/attachment";
 export const attachmentDelete = "/attachment/deleteAll";
 

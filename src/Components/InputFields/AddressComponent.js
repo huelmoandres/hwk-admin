@@ -1,69 +1,44 @@
 import { useQuery } from "@tanstack/react-query";
-import request from "../../Utils/AxiosUtils";
-import { countryV1 } from "../../Utils/AxiosUtils/API";
 import SearchableSelectInput from "./SearchableSelectInput";
 import SimpleInputField from "./SimpleInputField";
 import Loader from "../CommonComponent/Loader";
-
 import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
+import { stateV1 } from "@/Utils/AxiosUtils/API";
+import { requestV1 } from "@/Utils/AxiosUtils";
 
-const AddressComponent = ({ values, noAddress }) => {
+const AddressComponent = ({ values }) => {
   const router = useRouter();
-  const { t } = useTranslation("common");
-  const { data, isLoading } = useQuery([countryV1], () => request({ url: countryV1 }, router), {
+  const { t } = useTranslation("store");
+  const { data, isLoading } = useQuery([stateV1], () => requestV1({ url: `${stateV1}/country/858` }, router), {
     refetchOnWindowFocus: false,
     select: (res) =>
       res.data.map((country) => ({ id: country.id, name: country.name, state: country.state })),
   });
+
   if (isLoading) return <Loader />;
   return (
     <>
       <SearchableSelectInput
         nameList={[
           {
-            name: "country_id",
+            name: "stateId",
             require: "true",
-            title: "Country",
+            title: t("form.formState"),
             inputprops: {
-              name: "country_id",
-              id: "country_id",
+              name: "stateId",
+              id: "stateId",
               options: data,
-              defaultOption: "Select state",
-              close: values["country_id"] !== "" ? true : false,
+              defaultOption: t("form.placeholderState"),
+              close: values["id"] !== "",
             },
-          },
-          {
-            name: "state_id",
-            require: "true",
-            title: "State",
-            inputprops: {
-              name: "state_id",
-              id: "state_id",
-              options: values["country_id"]
-                ? data.filter(
-                    (country) => Number(country.id) === Number(values["country_id"])
-                  )?.[0]?.["state"]
-                : [],
-              defaultOption: "Select state",
-              close: values["state_id"] !== "" ? true : false,
-            },
-            disabled: values["country_id"] ? false : true,
           },
         ]}
       />
       <SimpleInputField
-        nameList={[{ name: "city", placeholder: t("EnterCity"), require: "true" }]}
-      />
-      {!noAddress && (
-        <SimpleInputField
-          nameList={[
-            { name: "address", type: "textarea", placeholder: t("EnterAddress"), require: "true" },
-          ]}
-        />
-      )}
-      <SimpleInputField
-        nameList={[{ name: "pincode", placeholder: t("EnterPincode"), require: "true" }]}
+        nameList={[
+          { name: "address", title: t("form.formAddress"), placeholder: t("form.placeholderAddress"), type: "textarea", require: "true" },
+        ]}
       />
     </>
   );

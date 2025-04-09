@@ -4,18 +4,19 @@ import { useContext, useEffect, useState } from "react";
 import Logo from "../../Components/CommonComponent/LogoWrapper/Logo";
 import ToggleButton from "../../Components/CommonComponent/LogoWrapper/ToggleButton";
 import RightNav from "./RightNav";
-import SearchBar from "./SearchBar";
 
-const Header = ({ setMode, mode, setLtr, settingData }) => {
+const Header = ({ setMode, mode, settingData }) => {
   const { state, sidebarOpen, setSidebarOpen } = useContext(SettingContext);
   const [mounted, setMounted] = useState(true);
   const [openSearchBar, setOpenSearchBar] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setMounted(false);
     }, 700);
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <div className={`page-header ${sidebarOpen ? "close_icon" : ""}`}>
       <div className={`header-wrapper m-0 ${mounted ? "skeleton-header" : ""}`}>
@@ -35,11 +36,9 @@ const Header = ({ setMode, mode, setLtr, settingData }) => {
             )}
           </a>
         </div>
-        <SearchBar openSearchBar={openSearchBar} setOpenSearchBar={setOpenSearchBar} />
         <RightNav
           setMode={setMode}
           mode={mode}
-          setLtr={setLtr}
           openSearchBar={openSearchBar}
           setOpenSearchBar={setOpenSearchBar}
         />

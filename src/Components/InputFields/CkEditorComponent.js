@@ -4,7 +4,7 @@ import { RiCodeSSlashLine, RiEditBoxLine } from "react-icons/ri";
 import SimpleInputField from "./SimpleInputField";
 import { ErrorMessage } from "formik";
 
-function CkEditorComponent({ onChange, editorLoaded, name, value, values, errorMessage }) {
+function CkEditorComponent({ onChange, editorLoaded, name, value, errorMessage, disabled }) {
   const [isCodeEditor, setIsCodeEditor] = useState(true);
 
   const { t } = useTranslation("common");
@@ -12,16 +12,7 @@ function CkEditorComponent({ onChange, editorLoaded, name, value, values, errorM
   const customConfig = {
     toolbar: {
       items: [
-        "bold",
-        "italic",
-        "|",
-        "heading",
-        "|",
-        "link",
-        "imageUpload",
-        "|",
-        "fontColor",
-        "fontBackgroundColor",
+        "bold"
       ],
     },
   };
@@ -46,14 +37,12 @@ function CkEditorComponent({ onChange, editorLoaded, name, value, values, errorM
                 id="ckcheck"
                 type="checkbox"
                 name="isCodeEditor"
+                disabled={disabled}
               />
 
               <label htmlFor="ckcheck" className="cursor-pointer">
                 <span className="edit">
                   <RiEditBoxLine />
-                </span>
-                <span className="code">
-                  <RiCodeSSlashLine />
                 </span>
               </label>
             </div>
@@ -70,16 +59,14 @@ function CkEditorComponent({ onChange, editorLoaded, name, value, values, errorM
                   const data = editor.getData();
                   onChange(data);
                 }}
+                disabled={disabled}
               />
             </div>
             <div className={!isCodeEditor ? "d-none" : "d-block"}>
               {" "}
               <div className="editor-textarea">
-                <div className="ckeditor-title">
-                  <p>*Only accept html tags</p>
-                </div>
                 <SimpleInputField
-                  nameList={[{ notitle: "true", name: name, type: "textarea", rows: 3 }]}
+                  nameList={[{ notitle: "true", name: name, type: "textarea", rows: 3, disabled }]}
                 />
               </div>
             </div>

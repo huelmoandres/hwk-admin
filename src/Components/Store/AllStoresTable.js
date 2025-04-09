@@ -1,31 +1,33 @@
-import { Approved, store } from "../../Utils/AxiosUtils/API";
 import TableWarper from "../../Utils/HOC/TableWarper";
 import ShowTable from "../Table/ShowTable";
-import usePermissionCheck from "../../Utils/Hooks/usePermissionCheck";
+import Loader from "@/Components/CommonComponent/Loader";
+import useDelete from "@/Utils/Hooks/useDelete";
+import { storesV1 } from "@/Utils/AxiosUtils/API";
 
 const AllRoles = ({ data, ...props }) => {
-  const [edit, destroy] = usePermissionCheck(["edit", "destroy"]);
+  const { mutate: deleteMutate, isLoading } = useDelete(
+    storesV1,
+    storesV1
+  );
+
   const headerObj = {
-    checkBox: true,
-    isSerialNo: false,
-    isOption: edit == false && destroy == false ? false : true,
-    noEdit: edit ? false : true,
+    checkBox: false,
+    isOption: true,
+    noEdit: false,
     optionHead: { title: "Action", show: "seller/store" },
     column: [
-      { title: "Logo", apiKey: "store_logo", type: "image", NameWithRound: true },
-      { title: "StoreName", apiKey: "store_name", sorting: true, sortBy: "desc" },
-      { title: "Name", apiKey: "name" },
-      { title: "CreateAt", apiKey: "created_at", sorting: true, sortBy: "desc", type: "date" },
-      { title: "Approved", apiKey: "is_approved", type: "switch", url: `${store}${Approved}` },
+      { title: "StoreName", apiKey: "name" },
+      { title: "Address", apiKey: "address" },
+      { title: "Phone", apiKey: "phone" },
+      { title: "Hours", apiKey: "hours" },
+      { title: "Departament", apiKey: "state", subKey: ["name"] },
     ],
     data: data || [],
   };
-  headerObj.data.filter((element) => (element.name = element?.vendor?.name));
-  if (!data) return null;
-
+  if (!data || isLoading) return <Loader />;
   return (
     <>
-      <ShowTable {...props} headerData={headerObj} />
+      <ShowTable {...props} headerData={headerObj} mutate={deleteMutate} />
     </>
   );
 };

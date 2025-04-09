@@ -2,7 +2,7 @@ import MessageCreate from "./MessageCreate";
 import { ToastNotification } from "./ToastNotification";
 
 const SuccessHandle = (resData, router, path, message, pathname) => {
-  if (resData.status === 201 || resData.status === 200) {
+  if (resData.status === 201 || resData.status === 200 || resData.status === 204) {
     path &&
       router &&
       router.push(path ? path : pathname.slice(0, pathname.slice(1).indexOf("/") + 1));

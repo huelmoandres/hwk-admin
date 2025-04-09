@@ -101,9 +101,9 @@ export const discountSchema = Yup.number().when("type", {
   otherwise: Yup.number().notRequired(),
 });
 
-export const requiredSchema = Yup.mixed().required();
-export const StatusSchema = Yup.boolean().required();
+export const requiredSchema = (t, options = {}) => Yup.mixed().required(t("validation:requiredValidation", options));
 
+Yup.boolean().required();
 export const phoneSchema = Yup.string().min(6).max(15).required();
 // export const IntegerSchema = Yup.number().integer().min(6).max(15).required()
 

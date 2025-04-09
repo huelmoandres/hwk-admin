@@ -4,23 +4,16 @@ import SearchableSelectInput from "../../InputFields/SearchableSelectInput";
 import SimpleInputField from "../../InputFields/SimpleInputField";
 
 const StoreVendor = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("store");
   return (
     <>
-      <SimpleInputField
-        nameList={[
-          { name: "name", placeholder: t("EnterName"), require: "true" },
-          { name: "email", placeholder: t("EnterEmail"), title: "EmailAddress", require: "true" },
-        ]}
-      />
       <div className="country-input mb-4">
         <SimpleInputField
           nameList={[
             {
               name: "phone",
-              title: "Phone",
-              placeholder: t("EnterPhone"),
-              require: "true",
+              title: t("form.formPhone"),
+              placeholder: t("form.placeholderPhone"),
               type: "number",
             },
           ]}
@@ -29,12 +22,15 @@ const StoreVendor = () => {
         <SearchableSelectInput
           nameList={[
             {
-              name: "country_code",
+              name: "phoneCode",
               notitle: "true",
               inputprops: {
-                name: "country_code",
-                id: "country_code",
-                options: AllCountryCode,
+                name: "phoneCode",
+                id: "phoneCode",
+                options: [
+                  { id: null, name: t("form.placeholderPhoneCode") },
+                  { id: 598, name: "+598", data: { class: "uy", code: "+598" } }
+                ],
               },
             },
           ]}

@@ -1,17 +1,8 @@
 import { Col, TabContent, TabPane } from "reactstrap";
-import ActivationTab from "./ActivationTab";
-import DeliveyTab from "./DeliveyTab";
-import EmailTab from "./EmailTab";
-import GeneralTab from "./GeneralTab";
-import GoogleReCaptcha from "./GoogleReCaptcha";
-import MaintenanceTab from "./MaintenanceTab";
-import MediaConfiguration from "./MediaConfiguration";
-import PaymentMethodsTab from "./PaymentMethodsTab";
-import RefundTab from "./Refund";
-import VendorCommissionTab from "./VendorCommissionTab";
-import WalletPointTab from "./WalletPointTab";
-import AnalyticsTab from "./AnalyticsTab";
-import SMSConfiguration from "./SMSConfigurationTab";
+import EmailTab from "@/Components/Setting/EmailTab";
+import GeneralTab from "@/Components/Setting/GeneralTab";
+import SocialTab from "@/Components/Setting/SocialTab";
+import CategoriesTab from "@/Components/Setting/CategoriesTab";
 
 const AllTabs = ({ values, activeTab, setFieldValue, errors, touched }) => {
   return (
@@ -22,45 +13,13 @@ const AllTabs = ({ values, activeTab, setFieldValue, errors, touched }) => {
             <GeneralTab values={values} setFieldValue={setFieldValue} errors={errors} />
           </TabPane>
           <TabPane tabId="2">
-            <ActivationTab />
+            <EmailTab values={values} setFieldValue={setFieldValue} errors={errors} />
           </TabPane>
           <TabPane tabId="3">
-            <WalletPointTab />
+            <SocialTab values={values} setFieldValue={setFieldValue} errors={errors} />
           </TabPane>
           <TabPane tabId="4">
-            <EmailTab
-              errors={errors}
-              touched={touched}
-              setFieldValue={setFieldValue}
-              values={values}
-            />
-          </TabPane>
-          <TabPane tabId="5">
-            <VendorCommissionTab values={values} />
-          </TabPane>
-          <TabPane tabId="6">
-            <SMSConfiguration values={values} />
-          </TabPane>
-          <TabPane tabId="7">
-            <MediaConfiguration values={values} />
-          </TabPane>
-          <TabPane tabId="12">
-            <GoogleReCaptcha />
-          </TabPane>
-          <TabPane tabId="8">
-            <RefundTab values={values} />
-          </TabPane>
-          <TabPane tabId="9">
-            <DeliveyTab values={values} setFieldValue={setFieldValue} />
-          </TabPane>
-          <TabPane tabId="10">
-            <PaymentMethodsTab errors={errors} touched={touched} />
-          </TabPane>
-          <TabPane tabId="11">
-            <AnalyticsTab values={values} setFieldValue={setFieldValue} errors={errors} />
-          </TabPane>
-          <TabPane tabId="13">
-            <MaintenanceTab values={values} setFieldValue={setFieldValue} errors={errors} />
+            <CategoriesTab values={values} setFieldValue={setFieldValue} errors={errors} />
           </TabPane>
         </TabContent>
       </Col>

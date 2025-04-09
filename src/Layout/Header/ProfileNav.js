@@ -22,7 +22,7 @@ const ProfileNav = () => {
   const isStateData =
     (accountContextData.image && Object?.keys(accountContextData.image).length > 0) ||
     accountContextData.image == "";
-  const { mutateLogout } = useLogout();
+  const { mutate: mutateLogout } = useLogout();
 
   const handleLogout = async () => {
     await mutateLogout();

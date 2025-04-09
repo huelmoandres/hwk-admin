@@ -1,29 +1,23 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Container } from "reactstrap";
-import ConvertPermissionArr from "../Utils/CustomFunctions/ConvertPermissionArr";
-import { replacePath } from "../Utils/CustomFunctions/ReplacePath";
 import Footer from "./Footer";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
+import { setEncryptedItem } from "@/Utils/CustomFunctions/encrypted-storage";
+import SettingContext from "@/Helper/SettingContext";
 
 const Layout = (props) => {
-  const [mode, setMode] = useState(false);
-  const [ltr, setLtr] = useState(true);
+  const { darkMode, setDarkMode } = useContext(SettingContext);
 
-  useEffect(() => {
-    mode ? document.body.classList.add("dark-only") : document.body.classList.remove("dark-only");
-  }, [mode, ltr]);
-
-  useEffect(() => {
-    document.body.classList.add("version=1.0.0");
-  }, []);
+  const setModeLocalStorage = () => {
+    setEncryptedItem("mode", !darkMode).then(() => setDarkMode((prev) => !prev));
+  }
 
   return (
     <>
       <div className="page-wrapper compact-wrapper" id="pageWrapper">
-        <Header setMode={setMode} mode={mode} setLtr={setLtr} settingData={"settingData"} />
+        <Header setMode={setModeLocalStorage} mode={darkMode} settingData={"settingData"} />
         <div className="page-body-wrapper">
           <Sidebar />
           <div className="page-body">

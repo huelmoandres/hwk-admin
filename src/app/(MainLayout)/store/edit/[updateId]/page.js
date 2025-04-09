@@ -1,12 +1,20 @@
 "use client";
-
 import StoreForm from "@/Components/Store/StoreForm";
-import { store } from "@/Utils/AxiosUtils/API";
+import { storesV1 } from "@/Utils/AxiosUtils/API";
 import FormWrapper from "@/Utils/HOC/FormWrapper";
-import useCreate from "@/Utils/Hooks/useCreate";
+import useUpdate from "@/Utils/Hooks/useUpdate";
+import { useTranslation } from "react-i18next";
 
 const StoreUpdate = ({ params }) => {
-  const { mutate, isLoading } = useCreate(store, params?.updateId, "/store");
+  const { t } = useTranslation("store");
+  const { mutate, isLoading } = useUpdate(
+    params.updateId ? `${storesV1}/${Array.isArray(params.updateId) ? params.updateId.join("/") : params.updateId}` : "",
+    "/store",
+    t("storeUpdated"),
+    null,
+    storesV1
+  );
+
   return (
     params?.updateId && (
       <FormWrapper title="EditStore">
@@ -14,7 +22,7 @@ const StoreUpdate = ({ params }) => {
           mutate={mutate}
           updateId={params?.updateId}
           loading={isLoading}
-          buttonName="Update"
+          buttonName={t("updateButton")}
         />
       </FormWrapper>
     )

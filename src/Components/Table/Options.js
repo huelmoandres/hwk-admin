@@ -40,7 +40,7 @@ const Options = ({
                 !optionPermission?.noEdit && (
                   <>
                     {optionPermission?.editRedirect ? (
-                      <Link href={`/` + optionPermission?.editRedirect + "/edit/" + fullObj.slug}>
+                      <Link href={`/` + optionPermission?.editRedirect + "/view/" + fullObj.slug}>
                         <RiPencilLine />
                       </Link>
                     ) : type == "post" && moduleName?.toLowerCase() == "tag" ? (

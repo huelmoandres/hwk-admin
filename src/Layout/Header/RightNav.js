@@ -76,9 +76,9 @@ const RightNav = ({ setMode, mode, setOpenSearchBar }) => {
         <li id="Mode">
           <div className="mode">
             {mode == false ? (
-              <RiMoonLine className="ri-moon-line" onClick={() => setMode((prev) => !prev)} />
+              <RiMoonLine className="ri-moon-line" onClick={setMode} />
             ) : (
-              <RiSunLine className="ri-sun-line" onClick={() => setMode((prev) => !prev)} />
+              <RiSunLine className="ri-sun-line" onClick={setMode} />
             )}
           </div>
           <HeaderTooltip target={"Mode"} />

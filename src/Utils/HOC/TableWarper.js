@@ -16,7 +16,6 @@ const TableWarper = (WrappedComponent) => {
     const [search, setSearch] = useState("");
     const [date, setDate] = useState([{ startDate: null, endDate: null, key: "selection" }]);
     const [sortBy, setSortBy] = useState({ field: "", sort: "asc" });
-    let ifParamsData = paramsProps ? Object.keys(paramsProps)[0] : "";
     const { data, isLoading, refetch, fetchStatus } = useQuery(
       [url, { paginate, page, sort: sortBy?.sort, field: sortBy?.field, type: type, start_date: date[0]?.startDate ?? null, end_date: date[0]?.endDate ?? null, ...paramsProps }],
       () =>
@@ -29,8 +28,6 @@ const TableWarper = (WrappedComponent) => {
           router
         )
     );
-
-    console.log("data", data);
 
     // To use this function in parent
     useImperativeHandle(ref, () => ({

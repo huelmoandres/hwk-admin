@@ -7,7 +7,6 @@ import NoSsr from "../../Utils/HOC/NoSsr";
 import ImportExport from "./ImportExport";
 
 const TableTitle = ({
-  fullObj,
   moduleName,
   onlyTitle,
   type,

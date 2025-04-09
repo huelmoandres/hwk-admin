@@ -47,6 +47,7 @@ const DeleteButton = ({ id, mutate, noImage }) => {
             <Btn
               title="Yes"
               onClick={() => {
+                mutate(id);
                 setModal(false);
               }}
               className="btn-theme btn-md fw-bold"

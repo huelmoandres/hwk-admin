@@ -43,10 +43,13 @@ const UserForm = ({
   }, [updateId]);
 
   const handleSubmit = async (values) => {
-    await mutate({
-      ...values,
+    const { email, password_confirmation, password, ...restData } = values;
+    const newData = {
+      ...restData,
+      ...(password && password.trim().length > 1 ? { password } : {}),
       phoneNumber: values.phoneNumber?.toString()
-    });
+    };
+    await mutate(newData);
   };
 
   if (updateId && (oldDataLoading || countriesLoading)) return <Loader />;

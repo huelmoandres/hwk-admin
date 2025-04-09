@@ -2,19 +2,10 @@ import { ErrorMessage } from "formik";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { FormFeedback, FormGroup, Input, InputGroup, InputGroupText, Label } from "reactstrap";
-import SettingContext from "../../Helper/SettingContext";
-import { handleModifier } from "../../Utils/Validation/ModifiedErrorMessage";
+import { handleModifier } from "@/Utils/Validation/ModifiedErrorMessage";
+import SettingContext from "@/Helper/SettingContext";
 
 const ReactstrapFormikInput = ({ field: { ...fields }, form: { touched, errors }, ...props }) => {
-  // function modifyingValue(value,object) {
-  //   const keys = value.split(/\.|\[|\]/).filter(Boolean)
-  //   let result = object;
-  //   for (const key of keys) {
-  //     result = result[key];
-  //     if (result === undefined) return undefined;
-  //   }
-  //   return result;
-  // }
 
   function modifyingValue(value, object) {
     const keys = value.split(/\.|\[|\]/).filter(Boolean);

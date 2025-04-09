@@ -5,119 +5,66 @@ import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Row } from "reactstrap";
 import FormBtn from "../../Elements/Buttons/FormBtn";
-import request from "../../Utils/AxiosUtils";
-import { store } from "../../Utils/AxiosUtils/API";
-import { getHelperText } from "../../Utils/CustomFunctions/getHelperText";
-import {
-  YupObject,
-  passwordConfirmationSchema,
-  passwordSchema,
-} from "../../Utils/Validation/ValidationSchemas";
+import { requestV1 } from "@/Utils/AxiosUtils";
+import { storesV1 } from "@/Utils/AxiosUtils/API";
+import { YupObject } from "@/Utils/Validation/ValidationSchemas";
 import Loader from "../CommonComponent/Loader";
 import AddressComponent from "../InputFields/AddressComponent";
-import CheckBoxField from "../InputFields/CheckBoxField";
-import FileUploadField from "../InputFields/FileUploadField";
 import SimpleInputField from "../InputFields/SimpleInputField";
 import { StoreInitialValue } from "./Widgets/StoreInitialValue";
 import { StoreValidationSchema } from "./Widgets/StoreValidationSchema";
 import StoreVendor from "./Widgets/StoreVendor";
 
-const StoreForm = ({ updateId, buttonName }) => {
-  const { t } = useTranslation("common");
+const StoreForm = ({ updateId, buttonName, mutate, isLoading }) => {
+  const { t } = useTranslation(["store", "validation"]);
   const router = useRouter();
   const {
     data: oldData,
-    isLoading,
+    isLoading: oldDataLoading,
     refetch,
-  } = useQuery(["store/id"], () => request({ url: store + "/" + updateId }, router), {
+  } = useQuery(["store/id"], () => requestV1({ url: `${storesV1}/${updateId}` }, router), {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     enabled: false,
     select: (data) => data?.data,
   });
+
   useEffect(() => {
     updateId && refetch();
   }, [updateId]);
-  if (updateId && isLoading) return <Loader />;
+
+  const handleSubmit = async (values) => {
+    await mutate({
+      ...values,
+      phone: values.phone?.toString().trim(),
+    });
+  };
+
+  if (updateId && (oldDataLoading || isLoading)) return <Loader />;
+
   return (
     <>
       <Formik
         enableReinitialize
         initialValues={{ ...StoreInitialValue(updateId, oldData) }}
-        validationSchema={YupObject({
-          ...StoreValidationSchema,
-          password: !updateId && passwordSchema,
-          password_confirmation: !updateId && passwordConfirmationSchema,
-        })}
-        onSubmit={(values) => {
-          // Put Your Logic Here
-          router.push(`/store`);
-        }}
+        validationSchema={YupObject().shape(StoreValidationSchema(t))}
+        onSubmit={handleSubmit}
       >
-        {({ setFieldValue, values, errors, touched }) => (
+        {({ values, touched }) => (
           <Form className="theme-form theme-form-2 mega-form">
             <Row>
-              <FileUploadField
-                values={values}
-                setFieldValue={setFieldValue}
-                title="StoreLogo"
-                type="file"
-                id="store_logo_id"
-                name="store_logo_id"
-                updateId={updateId}
-                errors={errors}
-                touched={touched}
-                helpertext={getHelperText("500x500px")}
-              />
               <SimpleInputField
                 nameList={[
-                  { name: "store_name", placeholder: t("EnterStoreName"), require: "true" },
-                  {
-                    name: "description",
-                    title: "StoreDescription",
-                    type: "textarea",
-                    placeholder: t("EnterDescription"),
-                    require: "true",
-                  },
+                  { name: "name", title: t("store:form.formName"), placeholder: t("store:form.placeholderName"), require: "true" },
                 ]}
               />
               <AddressComponent values={values} />
               <StoreVendor />
-              <div>
-                {!updateId && (
-                  <>
-                    <SimpleInputField
-                      nameList={[
-                        {
-                          name: "password",
-                          type: "password",
-                          placeholder: t("EnterPassword"),
-                          require: "true",
-                        },
-                        {
-                          name: "password_confirmation",
-                          title: "ConfirmPassword",
-                          type: "password",
-                          placeholder: t("Re-EnterPassword"),
-                          require: "true",
-                        },
-                      ]}
-                    />
-                  </>
-                )}
-              </div>
               <SimpleInputField
                 nameList={[
-                  { name: "facebook", type: "url", placeholder: t("EnterFacebookurl") },
-                  { name: "pinterest", type: "url", placeholder: t("EnterPinteresturl") },
-                  { name: "instagram", type: "url", placeholder: t("EnterInstagramurl") },
-                  { name: "twitter", type: "url", placeholder: t("EnterTwitterurl") },
-                  { name: "youtube", type: "url", placeholder: t("EnterYoutubeurl") },
+                  { name: "hours", title: t("store:form.formHours"), placeholder: t("store:form.placeholderHours") },
                 ]}
               />
-              <CheckBoxField name="hide_vendor_email" title="HideEmail" />
-              <CheckBoxField name="hide_vendor_phone" title="HidePhone" />
-              <CheckBoxField name="status" />
               <FormBtn buttonName={buttonName} />
             </Row>
           </Form>

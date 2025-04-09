@@ -30,16 +30,34 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "127.0.0.1:8000",
+        hostname: "127.0.0.1",
+        port: "8000",
       },
       {
         protocol: "http",
-        hostname: "127.0.0.1:3001",
+        hostname: "127.0.0.1",
+        port: "3001",
       },
       {
         protocol: "https",
         hostname: "v0-hwkstore.vercel.app",
       },
+      {
+        protocol: "https",
+        hostname: "http2.mlstatic.com",
+      },
+      {
+        protocol: "http",
+        hostname: "http2.mlstatic.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+      {
+        protocol: "http",
+        hostname: "res.cloudinary.com",
+      }
     ],
   },
   devIndicators: {

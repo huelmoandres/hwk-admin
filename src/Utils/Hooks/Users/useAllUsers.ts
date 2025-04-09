@@ -57,8 +57,6 @@ const useAllUsers = (params: AllUsersParams): UseQueryResult<User[], Error> => {
           ...paramsProps,
         },
       }, router);
-      
-      console.log("aca", response.data);
 
       return response.data as User[];
     },

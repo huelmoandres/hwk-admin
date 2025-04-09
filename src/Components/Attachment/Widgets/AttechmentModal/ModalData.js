@@ -6,9 +6,10 @@ import { Input, Label } from "reactstrap";
 
 const ModalData = ({ state, dispatch, multiple, attachmentsData, refetch, redirectToTabs }) => {
   const [selectedId, setSelectedId] = useState([]);
+
   useEffect(() => {
     const onlyId =
-      state?.selectedImage?.length > 0 && state?.selectedImage?.map((data) => data?.id);
+      state?.selectedImage?.length > 0 && state?.selectedImage?.map((data) => data?.asset_id);
     setSelectedId(onlyId);
   }, []);
 
@@ -17,26 +18,27 @@ const ModalData = ({ state, dispatch, multiple, attachmentsData, refetch, redire
       if (!e.target.checked) {
         let removeDuplicatesImage = [...state.selectedImage];
         removeDuplicatesImage = removeDuplicatesImage.filter((el) => {
-          return el.id !== item.id;
+          return el.asset_id !== item.asset_id;
         });
         dispatch({
           type: "SELECTEDIMAGE",
           payload: state?.selectedImage?.length > 0 ? removeDuplicatesImage : [item],
         });
-        const updatedId = removeDuplicatesImage?.map((data) => data?.id);
+        const updatedId = removeDuplicatesImage?.map((data) => data?.asset_id);
         setSelectedId(updatedId);
       } else {
         dispatch({
           type: "SELECTEDIMAGE",
           payload: state?.selectedImage?.length > 0 ? [...state.selectedImage, item] : [item],
         });
-        setSelectedId((prev) => (Array.isArray(prev) ? [...prev, item?.id] : [item?.id]));
+        setSelectedId((prev) => (Array.isArray(prev) ? [...prev, item?.asset_id] : [item?.asset_id]));
       }
     } else {
       dispatch({ type: "SELECTEDIMAGE", payload: [item] });
+      setSelectedId(item.asset_id);
     }
   };
-  const getMimeTypeImage = (result) => mimeImageMapping[result?.mime_type] ?? result?.original_url;
+  const getMimeTypeImage = (result) => mimeImageMapping[result?.mime_type] ?? result?.secure_url;
 
   return (
     <>
@@ -44,8 +46,13 @@ const ModalData = ({ state, dispatch, multiple, attachmentsData, refetch, redire
         attachmentsData?.map((elem, i) => (
           <div key={i}>
             <div className="library-box">
-              <Input type="checkbox" id={elem.id} onChange={(e) => ChoseImages(e, elem)} />
-              <Label htmlFor={elem.id}>
+              <Input
+                type="checkbox"
+                id={elem.asset_id}
+                onChange={(e) => ChoseImages(e, elem)}
+                checked={(Array.isArray(selectedId) ? selectedId : [selectedId]).includes(elem.asset_id)}
+              />
+              <Label htmlFor={elem.asset_id}>
                 <div className="ratio ratio-1x1">
                   <Image
                     src={getMimeTypeImage(elem)}

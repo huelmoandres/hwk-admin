@@ -40,15 +40,6 @@ const SetupTab = ({ values, setFieldValue, errors, updateId }) => {
 
   // Getting Products Data
   const [arrayState, setArrayState] = useState([]);
-  useEffect(() => {
-    if (updateId) {
-      setArrayState((prev) =>
-        Array.from(
-          new Set([...prev, ...values["related_products"], ...values["cross_sell_products"]])
-        )
-      );
-    }
-  }, [updateId]);
   const {
     data: productData,
     isLoading: productLoader,

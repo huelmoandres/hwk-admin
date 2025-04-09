@@ -1,106 +1,86 @@
-import { AllTimeZone } from "../../Data/AllTimeZoneData";
 import FileUploadField from "../InputFields/FileUploadField";
 import SearchableSelectInput from "../InputFields/SearchableSelectInput";
 import SimpleInputField from "../InputFields/SimpleInputField";
-import GeneralTab1 from "./GeneralTab1";
-import { getHelperText } from "../../Utils/CustomFunctions/getHelperText";
+import { getHelperText } from "@/Utils/CustomFunctions/getHelperText";
 
 import { useTranslation } from "react-i18next";
 
 const GeneralTab = ({ values, setFieldValue, errors }) => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("settings");
   return (
     <>
       <FileUploadField
-        name="light_logo_image_id"
-        uniquename={values?.values?.general?.light_logo_image}
-        title="LightLogo"
+        name="logoLightPath"
+        uniquename={values?.logoLightPath}
+        title={t("form.formLogoLight")}
         errors={errors}
-        id="light_logo_image_id"
+        id="logoLightPath"
         type="file"
         values={values}
         setFieldValue={setFieldValue}
         helpertext={getHelperText("180x50px")}
+        multiple={false}
+        showImage={true}
       />
 
       <FileUploadField
-        name="dark_logo_image_id"
-        title="DarkLogo"
-        uniquename={values?.values?.general?.dark_logo_image}
-        id="dark_logo_image_id"
+        name="darkLogoImage"
+        title={t("form.formLogoDark")}
+        uniquename={values?.darkLogoPath}
+        id="darkLogoPath"
         type="file"
         values={values}
         setFieldValue={setFieldValue}
         errors={errors}
         helpertext={getHelperText("180x50px")}
+        multiple={false}
+        showImage={true}
       />
 
       <FileUploadField
-        name="tiny_logo_image_id"
-        title="TinyLogo"
-        uniquename={values?.values?.general?.tiny_logo_image}
-        id="tiny_logo_image_id"
-        type="file"
-        values={values}
-        setFieldValue={setFieldValue}
-        errors={errors}
-        helpertext={getHelperText("50x30px")}
-      />
-
-      <FileUploadField
-        name="favicon_image_id"
-        title="Favicon"
-        uniquename={values?.values?.general?.favicon_image}
-        id="favicon_image_id"
+        name="faviconPath"
+        title={t("form.formFavicon")}
+        uniquename={values?.faviconPath}
+        id="faviconPath"
         type="file"
         values={values}
         setFieldValue={setFieldValue}
         errors={errors}
         helpertext={getHelperText("16x16px")}
+        multiple={false}
+        showImage={true}
       />
 
       <SimpleInputField
         nameList={[
           {
-            name: "[values][general][site_title]",
-            title: "SiteTitle",
-            placeholder: t("EnterSiteTitle"),
+            name: "siteName",
+            title: t("form.formSiteName"),
+            placeholder: t("form.placeholderSiteName"),
             require: "true",
-            errormsg: "SiteTitle",
+            errormsg: "siteName",
           },
           {
-            name: "[values][general][site_name]",
-            title: "SiteName",
-            placeholder: t("EnterSiteName"),
-            errormsg: "SiteName",
+            name: "siteDescription",
+            title: t("form.formSiteDescription"),
+            placeholder: t("form.placeholderSiteDescription"),
+            errormsg: "siteDescription",
+            require: "true"
           },
           {
-            name: "[values][general][site_url]",
-            title: "SiteUrl",
-            placeholder: t("EnterSiteUrl"),
-            errormsg: "SiteUrl",
+            name: "primaryColor",
+            title: t("form.formPrimaryColor"),
+            placeholder: t("form.placeholderPrimaryColor"),
+            errormsg: "primaryColor",
+            require: "true"
           },
           {
-            name: "[values][general][site_tagline]",
-            title: "siteTagline",
-            placeholder: t("EnterSiteTagline"),
+            name: "secondaryColor",
+            title: t("form.formSecondaryColor"),
+            placeholder: t("form.placeholderSecondaryColor"),
           },
         ]}
       />
-      <SearchableSelectInput
-        nameList={[
-          {
-            name: "default_timezone",
-            title: "Timezone",
-            inputprops: {
-              name: "default_timezone",
-              id: "default_timezone",
-              options: AllTimeZone || [],
-            },
-          },
-        ]}
-      />
-      <GeneralTab1 />
     </>
   );
 };

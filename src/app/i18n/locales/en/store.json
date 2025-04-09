@@ -1,0 +1,19 @@
+{
+  "form": {
+    "formName": "Name",
+    "formState": "State",
+    "formAddress": "Address",
+    "formPhone": "Phone",
+    "formHours": "Opening Hours",
+    "placeholderName": "Enter store name",
+    "placeholderState": "Select state",
+    "placeholderAddress": "Enter address",
+    "placeholderPhone": "Enter contact phone",
+    "placeholderPhoneCode": "Select code",
+    "placeholderHours": "Enter opening hours"
+  },
+  "saveButton": "Save Store",
+  "updateButton": "Update Store",
+  "storeSaved": "The store has been saved successfully!",
+  "storeUpdated": "The store has been updated successfully!"
+}

@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(request) {
-  console.log(request, request.cookies.get("access_token"));
   // Obtener la cookie de autenticación (ajusta el nombre según tu implementación)
   const authCookie = request.cookies.get("access_token");
 

@@ -23,10 +23,9 @@ const client = axios.create({
 });
 
 const clientV1 = axios.create({
-  baseURL: "/api",
+  baseURL: process.env.API_PROD_URL_V1,
   headers: {
     Accept: "application/json",
-    "Content-Type": "application/json",
   },
   withCredentials: true,
 });
@@ -49,13 +48,25 @@ const request = async ({ ...options }, router) => {
 
 export const requestV1 = async ({ ...options }, router, completeData = false) => {
   try {
-    const response = await clientV1(options);
-    if (completeData) {
-      return response;
-    }
-    return response.data;
+    const isFormData = options?.data instanceof FormData;
+
+    const headers = {
+      Accept: "application/json",
+      ...(isFormData
+        ? { "Content-Type": "multipart/form-data" } // ← Aquí lo forzás
+        : { "Content-Type": "application/json" }),
+      ...options.headers, // permitir sobrescritura manual si se desea
+    };
+
+    const response = await clientV1({
+      ...options,
+      headers,
+    });
+
+    return completeData ? response : response.data;
   } catch (error) {
     if (error?.response?.status === 401) {
+      console.log("acarouter",error )
       clearSession(router);
     }
     throw error;

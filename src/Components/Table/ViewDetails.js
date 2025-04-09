@@ -1,63 +1,23 @@
-import { usePathname, useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useRouter } from "next/navigation";
 import { RiEyeLine } from "react-icons/ri";
-import ShowModal from "../../Elements/Alerts&Modals/Modal";
-import Btn from "../../Elements/Buttons/Btn";
-import BadgeContext from "../../Helper/BadgeContext";
-import ViewDetailBody from "./ViewDetailBody";
 
 const ViewDetails = ({ fullObj, tableData }) => {
-  const [loadingState, setLoadingState] = useState("");
   const router = useRouter();
-  const pathname = usePathname();
-  const { state, dispatch } = useContext(BadgeContext);
-  const [modal, setModal] = useState(false);
-  const OnStatusClick = (value) => {
-    setModal(false);
-  };
   const redirectLink = () => {
-    const order_number = fullObj?.order_number?.props?.children?.[1];
-    router.push(`${tableData?.redirectUrl}/${order_number}`);
+    const productNumber = fullObj?.mlId;
+    router.push(`${tableData?.redirectUrl}/view/${productNumber}`);
   };
   return (
     <>
       <div>
         <a
           onClick={() => {
-            tableData?.redirectUrl ? redirectLink() : setModal(true);
+            tableData?.redirectUrl ? redirectLink() : undefined;
           }}
         >
           <RiEyeLine className="ri-pencil-line" />
         </a>
       </div>
-      <ShowModal
-        open={modal}
-        title={tableData.modalTitle}
-        close={true}
-        setModal={setModal}
-        buttons={
-          <>
-            {fullObj?.status == "pending" && (
-              <>
-                <Btn
-                  title="Rejected"
-                  onClick={() => OnStatusClick("rejected")}
-                  loading={Number(loadingState == "rejected" && isLoading)}
-                  className="btn-md btn-outline fw-bold"
-                />
-                <Btn
-                  title="Approved"
-                  loading={Number(loadingState == "approved" && isLoading)}
-                  onClick={() => OnStatusClick("approved")}
-                  className="btn-theme btn-md fw-bold"
-                />
-              </>
-            )}
-          </>
-        }
-      >
-        <ViewDetailBody fullObj={fullObj} />
-      </ShowModal>
     </>
   );
 };

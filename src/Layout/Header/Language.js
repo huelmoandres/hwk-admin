@@ -18,10 +18,8 @@ const Language = () => {
     router.refresh();
   };
   const langData = [
-    { LanuageName: "English", lang: "en", icon: "us" },
-    { LanuageName: "Franch", lang: "fr", icon: "fr" },
     { LanuageName: "Spanish", lang: "es", icon: "es" },
-    { LanuageName: "Arabic", lang: "ar", icon: "ar" },
+    { LanuageName: "English", lang: "en", icon: "us" }
   ];
 
   return (

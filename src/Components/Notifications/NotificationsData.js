@@ -16,13 +16,15 @@ const NotificationsData = () => {
   const { data, isLoading, refetch } = useQuery(
     [NotificationsAPI],
     () => request({ url: NotificationsAPI }, router),
-    { enabled: false, select: (res) => res.data.data }
+    { enabled: false, select: (res) => res.data }
   );
   useEffect(() => {
     refetch();
     setNotification(null);
   }, []);
+
   if (isLoading) return <Loader />;
+
   return (
     <ul className="notification-setting">
       {data?.map((notification, index) => (
