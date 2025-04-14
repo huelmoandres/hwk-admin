@@ -1,0 +1,19 @@
+{
+  "form": {
+    "formTitle": "Título",
+    "formDescription": "Descripción",
+    "formStartDate": "Fecha de inicio",
+    "formEndDate": "Fecha de fin",
+    "formLocation": "Ubicación",
+    "formMedias": "Medias del evento",
+    "placeholderTitle": "Ingresar el titulo del evento",
+    "placeholderDescription": "Ingresar la descripción del evento",
+    "placeholderLocation": "Ingresar la ubicación del evento",
+    "placeholderStartDate": "Ingresar fecha de inicio",
+    "placeholderEndDate": "Ingresar fecha de fin"
+  },
+  "saveButton": "Guardar Evento",
+  "updateButton": "Actualizar Evento",
+  "eventSaved": "¡El evento se ha guardado correctamente!",
+  "eventUpdated": "¡El evento se ha actualizado correctamente!"
+}

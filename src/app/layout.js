@@ -8,7 +8,7 @@ import { detectLanguage } from "./i18n/server";
 import { settingsV1 } from "@/Utils/AxiosUtils/API";
 
 export async function generateMetadata() {
-  const settingData = await fetch(`${process.env.API_PROD_URL}${settingsV1}`, {
+  const settingData = await fetch(`${process.env.API_PROD_URL_V1}${settingsV1}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",
@@ -32,7 +32,7 @@ export default async function RootLayout({ children }) {
   const lng = await detectLanguage();
 
   // 🔹 Fetch desde el servidor
-  const settingData = await fetch(`${process.env.API_PROD_URL}${settingsV1}`, {
+  const settingData = await fetch(`${process.env.API_PROD_URL_V1}${settingsV1}`, {
     method: "GET",
     headers: {
       "Accept": "application/json",

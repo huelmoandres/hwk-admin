@@ -26,6 +26,9 @@ export const statisticsV1 = "statistics";
 //store api
 export const storesV1 = "stores";
 
+//store api
+export const eventsV1 = "events";
+
 
 
 

@@ -3,6 +3,7 @@ import EmailTab from "@/Components/Setting/EmailTab";
 import GeneralTab from "@/Components/Setting/GeneralTab";
 import SocialTab from "@/Components/Setting/SocialTab";
 import CategoriesTab from "@/Components/Setting/CategoriesTab";
+import GeneralBanners from "@/Components/Setting/GeneralBanners";
 
 const AllTabs = ({ values, activeTab, setFieldValue, errors, touched }) => {
   return (
@@ -20,6 +21,9 @@ const AllTabs = ({ values, activeTab, setFieldValue, errors, touched }) => {
           </TabPane>
           <TabPane tabId="4">
             <CategoriesTab values={values} setFieldValue={setFieldValue} errors={errors} />
+          </TabPane>
+          <TabPane tabId="5">
+            <GeneralBanners values={values} setFieldValue={setFieldValue} errors={errors} />
           </TabPane>
         </TabContent>
       </Col>

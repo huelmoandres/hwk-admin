@@ -3,7 +3,6 @@ import Btn from "../../../../Elements/Buttons/Btn";
 
 const ModalButton = ({
   setModal,
-  attachmentsData,
   dispatch,
   state,
   name,
@@ -11,11 +10,9 @@ const ModalButton = ({
   setFieldValue,
   tabNav,
   multiple,
-  isLoading,
-  showImage
+  isLoading
 }) => {
   const { t } = useTranslation("common");
-  const storeImageObject = name?.split("_id")[0];
   const handleClick = (value) => {
     if (tabNav == 2) {
       if (state.setBrowserImage) {
@@ -27,43 +24,29 @@ const ModalButton = ({
     } else {
       if (multiple) {
         value &&
-          value.map((element) => {
+          value.map(() => {
             state.selectedImage && setSelectedImage([...state.selectedImage]);
             state.selectedImage &&
               setFieldValue(
                 name,
-                state.selectedImage.map((elemmm) => elemmm.asset_id)
+                state.selectedImage.map((elemmm) => elemmm)
               );
           });
       } else {
         if (state?.selectedImage?.length > 0) {
-          if (showImage) {
-            setFieldValue(name, value[0].secure_url);
-          } else {
-            setFieldValue(
-              name,
-              attachmentsData?.find((item) => {
-                return item.asset_id == value[0]?.asset_id;
-              }).id
-            );
-            storeImageObject &&
-              setFieldValue(
-                storeImageObject,
-                attachmentsData?.find((item) => {
-                  return item.asset_id == value[0]?.asset_id;
-                })
-              );
-            setSelectedImage([
-              attachmentsData?.find((item) => {
-                return item.asset_id == value[0]?.asset_id;
-              }),
-            ]);
-          }
+          setFieldValue(
+            name,
+            value[0]
+          );
+          setSelectedImage([
+            value[0]
+          ]);
         }
       }
     }
     setModal(false);
   };
+
   return (
     <>
       <div className="media-bottom-btn">

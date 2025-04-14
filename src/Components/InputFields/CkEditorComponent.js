@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { RiCodeSSlashLine, RiEditBoxLine } from "react-icons/ri";
+import { RiEditBoxLine } from "react-icons/ri";
 import SimpleInputField from "./SimpleInputField";
 import { ErrorMessage } from "formik";
 
 function CkEditorComponent({ onChange, editorLoaded, name, value, errorMessage, disabled }) {
-  const [isCodeEditor, setIsCodeEditor] = useState(true);
+  const [isCodeEditor, setIsCodeEditor] = useState(false);
 
   const { t } = useTranslation("common");
   const [editor, setEditor] = useState(null);
@@ -30,23 +30,6 @@ function CkEditorComponent({ onChange, editorLoaded, name, value, errorMessage, 
       {editorLoaded && editor ? (
         <>
           <div className="custom-editor editor-checkbox">
-            <div className="form-check form-switch">
-              <input
-                onChange={() => setIsCodeEditor((prev) => !prev)}
-                className="form-check-input"
-                id="ckcheck"
-                type="checkbox"
-                name="isCodeEditor"
-                disabled={disabled}
-              />
-
-              <label htmlFor="ckcheck" className="cursor-pointer">
-                <span className="edit">
-                  <RiEditBoxLine />
-                </span>
-              </label>
-            </div>
-
             <div className={isCodeEditor ? "d-none" : "d-block"}>
               {" "}
               <editor.CKEditor

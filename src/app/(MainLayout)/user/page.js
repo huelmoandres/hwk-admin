@@ -10,8 +10,6 @@ const AllUsers = () => {
       <AllUsersTable
         url={usersV1}
         moduleName="User"
-        exportButton={true}
-        importExport={false}
       />
     </Col>
   );

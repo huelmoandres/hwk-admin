@@ -53,6 +53,7 @@ const SettingForm = ({ mutate, loading, title }) => {
         defaultMetaDescription: data?.defaultMetaDescription ?? "",
         accessoriesCategoryIds: data?.accessoriesCategories?.map((category) => category.id) ?? [],
         glassesCategoryIds: data?.glassesCategories?.map((category) => category.id) ?? [],
+        generalBannerUrls: data?.generalBanners?.map((banner) => banner.url) ?? [],
       }}
       onSubmit={(values) => {
         mutate(values);

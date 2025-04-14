@@ -43,12 +43,13 @@ const UserForm = ({
   }, [updateId]);
 
   const handleSubmit = async (values) => {
-    const { email, password_confirmation, password, ...restData } = values;
+    const { password_confirmation, password, ...restData } = values;
     const newData = {
       ...restData,
       ...(password && password.trim().length > 1 ? { password } : {}),
       phoneNumber: values.phoneNumber?.toString()
     };
+    console.log("aca", newData, values);
     await mutate(newData);
   };
 

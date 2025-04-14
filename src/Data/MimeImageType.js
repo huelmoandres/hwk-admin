@@ -15,6 +15,7 @@ export const mimeImageMapping = {
   "video/mp4": "/assets/images/video.png",
   "video/webm": "/assets/images/video.png",
   "video/ogg": "/assets/images/video.png",
+  "video": "/assets/images/video.png",
   "application/zip": "/assets/images/zip.png",
   "application/x-tar": "/assets/images/zip.png",
   "application/gzip": "/assets/images/zip.png",

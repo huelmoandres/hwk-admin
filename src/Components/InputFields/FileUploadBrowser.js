@@ -75,8 +75,6 @@ const FileUploadBrowser = ({ values, setFieldValue, dispatch, ...props }) => {
     ) : null;
   }
   const onSelect = (event) => {
-    console.log(event.currentTarget.files);
-
     if (event.currentTarget.files.length > 5) {
       return ToastNotification("error", `You've reached 5 file maximum.`);
     } else {

@@ -36,23 +36,23 @@ const Options = ({
                   <RiPencilLine />
                 </a>
               ) : (
-                fullObj?.slug &&
+                (fullObj?.slug || fullObj?.id) &&
                 !optionPermission?.noEdit && (
                   <>
                     {optionPermission?.editRedirect ? (
-                      <Link href={`/` + optionPermission?.editRedirect + "/view/" + fullObj.slug}>
+                      <Link href={`/${optionPermission?.editRedirect}/view/${fullObj.slug ?? fullObj.id}`}>
                         <RiPencilLine />
                       </Link>
                     ) : type == "post" && moduleName?.toLowerCase() == "tag" ? (
-                      <Link href={`/${pathname.split("/")[1]}/tag/edit/${fullObj.slug}`}>
+                      <Link href={`/${pathname.split("/")[1]}/tag/edit/${fullObj.slug ?? fullObj.id}`}>
                         <RiPencilLine />
                       </Link>
                     ) : type == "post" ? (
-                      <Link href={`/${pathname.split("/")[1]}/category/edit/${fullObj.slug}`}>
+                      <Link href={`/${pathname.split("/")[1]}/category/edit/${fullObj.slug ?? fullObj.id}`}>
                         <RiPencilLine />
                       </Link>
                     ) : (
-                      <Link href={`/${pathname.split("/")[1]}/edit/${fullObj.slug}`}>
+                      <Link href={`/${pathname.split("/")[1]}/edit/${fullObj.slug ?? fullObj.id}`}>
                         <RiPencilLine />
                       </Link>
                     )}
@@ -62,7 +62,7 @@ const Options = ({
             </div>
             <div>
               {!optionPermission?.noDelete && (
-                <DeleteButton id={fullObj?.slug} mutate={mutate} />
+                <DeleteButton id={fullObj?.slug ?? fullObj?.id} mutate={mutate} />
               )}
             </div>
           </>

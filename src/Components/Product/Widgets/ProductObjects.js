@@ -18,10 +18,8 @@ export function ProductInitValues(oldData, updateId) {
     title: updateId ? oldData?.title || "" : "",
 
     // Product Images
-    product_thumbnail: updateId ? oldData?.thumbnail || "" : "",
-    product_thumbnail_id: updateId ? oldData?.thumbnailId || "" : "",
-    product_galleries: updateId ? oldData?.pictures?.map((img) => img) || "" : "",
-    product_galleries_id: updateId ? oldData?.pictures?.map((elem) => elem.id) || "" : "",
+    thumbnail: updateId ? oldData?.thumbnail || "" : "",
+    pictures: updateId ? oldData?.pictures?.map((elem) => elem.secureUrl) || [] : [],
 
     //Inventary
     price: updateId ? oldData?.price || "" : "",

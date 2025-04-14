@@ -1,0 +1,19 @@
+{
+  "form": {
+    "formTitle": "Title",
+    "formDescription": "Description",
+    "formStartDate": "Start Date",
+    "formEndDate": "End Date",
+    "formLocation": "Location",
+    "formMedias": "Event Media",
+    "placeholderTitle": "Enter event title",
+    "placeholderDescription": "Enter event description",
+    "placeholderLocation": "Enter event location",
+    "placeholderStartDate": "Enter start date",
+    "placeholderEndDate": "Enter end date"
+  },
+  "saveButton": "Save Event",
+  "updateButton": "Update Event",
+  "eventSaved": "The event has been saved successfully!",
+  "eventUpdated": "The event has been updated successfully!"
+}

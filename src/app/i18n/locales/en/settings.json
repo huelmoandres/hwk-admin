@@ -12,19 +12,18 @@
     "formContactEmail": "Contact Email",
     "formContactPhone": "Contact Phone",
     "formContactAddress": "Contact Address",
-    "formFacebookUrl": "Facebook Link",
-    "formInstagramUrl": "Instagram Link",
-    "formTwitterUrl": "Twitter Link",
-    "formYoutubeUrl": "YouTube Link",
+    "formFacebookUrl": "Facebook URL",
+    "formInstagramUrl": "Instagram URL",
+    "formTwitterUrl": "Twitter URL",
+    "formYoutubeUrl": "YouTube URL",
     "formDefaultMetaTitle": "Default Meta Title",
     "formDefaultMetaDescription": "Default Meta Description",
     "formDefaultOgImagePath": "Default OG Image",
-
     "placeholderSiteName": "Enter site name",
     "placeholderSiteDescription": "Enter site description",
     "placeholderPrimaryColor": "Select primary color",
     "placeholderSecondaryColor": "Select secondary color",
-    "placeholderContactEmail": "Enter contact email",
+    "placeholderContactEmail": "Enter email address",
     "placeholderContactPhone": "Enter phone number",
     "placeholderContactAddress": "Enter address",
     "placeholderFacebookUrl": "Enter Facebook URL",
@@ -35,14 +34,15 @@
     "placeholderDefaultMetaDescription": "Enter default meta description",
     "placeholderDefaultOgImagePath": "Select default OG image"
   },
-  "saveButton": "Save Settings",
-  "updateButton": "Update Settings",
-  "storeSaved": "Settings have been saved successfully!",
-  "storeUpdated": "Settings have been updated successfully!",
+  "saveButton": "Save Configuration",
+  "updateButton": "Update Configuration",
+  "storeSaved": "The configuration has been saved successfully!",
+  "storeUpdated": "The configuration has been updated successfully!",
   "tabs": {
     "general": "General",
-    "emailConfiguration": "Email Configuration",
+    "emailConfiguration": "Contact Configuration",
     "socialNetworks": "Social Networks",
-    "pages": "Pages"
+    "pages": "Pages",
+    "generalBanners": "General Banners"
   }
 }

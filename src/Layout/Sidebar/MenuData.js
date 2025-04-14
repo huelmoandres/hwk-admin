@@ -1,23 +1,11 @@
 import {
-  RiArticleLine,
-  RiCoinsLine,
+  RiCalendar2Line,
   RiContactsLine,
-  RiCoupon2Line,
-  RiCurrencyFill,
-  RiExchangeDollarFill,
   RiHomeLine,
-  RiImageLine,
-  RiListUnordered,
-  RiPagesLine,
-  RiPercentLine,
   RiQuestionnaireLine,
-  RiRefund2Line,
   RiSettings3Line,
   RiStore2Line,
   RiStore3Line,
-  RiTruckLine,
-  RiWalletLine,
-  RiWindowLine,
 } from "react-icons/ri";
 
 const MENUITEMS = [
@@ -38,9 +26,8 @@ const MENUITEMS = [
         title: "AddUser",
         path: "/user/create",
         displayTitle: "AddUser",
-        permission: ["user.create"],
       },
-      { title: "AllUsers", path: "/user", displayTitle: "AllUsers", permission: ["user.index"] },
+      { title: "AllUsers", path: "/user", displayTitle: "AllUsers"},
     ],
   },
   {
@@ -55,8 +42,12 @@ const MENUITEMS = [
         displayTitle: "All Product",
         badgeType: "badge bg-warning text-dark ml-3",
         badgeValue: 0,
-        permission: ["product.create"],
-      }
+      },
+      {
+        title: "AddProduct",
+        path: "/product/create",
+        displayTitle: "Add Product",
+      },
     ],
   },
   {
@@ -69,7 +60,6 @@ const MENUITEMS = [
         title: "AddStore",
         path: "/store/create",
         displayTitle: "Add Store",
-        permission: ["store.create"],
       },
       {
         title: "AllStores",
@@ -77,24 +67,34 @@ const MENUITEMS = [
         displayTitle: "All Stores",
         badgeType: "badge bg-warning text-dark ml-3",
         badgeValue: 0,
-        permission: ["store.index"],
       }
     ],
   },
   {
-    title: "FAQ's",
-    displayTitle: "FAQ's",
-    icon: <RiQuestionnaireLine />,
-    path: "/faq",
-    permission: ["faq.index"],
-    type: "link",
+    title: "Eventos",
+    displayTitle: "Eventos",
+    icon: <RiCalendar2Line />,
+    type: "sub",
+    children: [
+      {
+        title: "AddEvent",
+        path: "/event/create",
+        displayTitle: "Add Store",
+      },
+      {
+        title: "AllEvents",
+        path: "/event",
+        displayTitle: "All Events",
+        badgeType: "badge bg-warning text-dark ml-3",
+        badgeValue: 0,
+      }
+    ],
   },
   {
     title: "Settings",
     displayTitle: "Settings",
     icon: <RiSettings3Line />,
     path: "/setting",
-    permission: ["setting.index"],
     type: "link",
   }
 ];

@@ -7,8 +7,8 @@ import { Row, TabContent, TabPane } from "reactstrap";
 import ShowModal from "../../../../Elements/Alerts&Modals/Modal";
 import Btn from "../../../../Elements/Buttons/Btn";
 import { selectImageReducer } from "@/Utils/AllReducers";
-import request, { requestV1 } from "../../../../Utils/AxiosUtils";
-import { attachment, createAttachment, createAttachmentV1, settingsV1, updateSettingsV1 } from "@/Utils/AxiosUtils/API";
+import { requestV1 } from "@/Utils/AxiosUtils";
+import { attachment, createAttachmentV1 } from "@/Utils/AxiosUtils/API";
 import useCreate from "../../../../Utils/Hooks/useCreate";
 import { YupObject, requiredSchema } from "@/Utils/Validation/ValidationSchemas";
 import FileUploadBrowser from "../../../InputFields/FileUploadBrowser";
@@ -18,7 +18,6 @@ import ModalButton from "./ModalButton";
 import ModalData from "./ModalData";
 import ModalNav from "./ModalNav";
 import { useRouter } from "next/navigation";
-import useUpdate from "@/Utils/Hooks/useUpdate";
 
 const AttachmentModal = (props) => {
   const {
@@ -40,7 +39,7 @@ const AttachmentModal = (props) => {
   const [tabNav, setTabNav] = useState(1);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [paginate, setPaginate] = useState(50);
+  const [paginate, _setPaginate] = useState(50);
   const [sorting, setSorting] = useState("");
   const router = useRouter();
   const [state, dispatch] = useReducer(selectImageReducer, {
@@ -71,6 +70,7 @@ const AttachmentModal = (props) => {
       redirectToTabs && setTabNav(1);
     },
   );
+
   useEffect(() => {
     modal && !noAPICall && refetch();
     isattachment && setTabNav(2);
@@ -110,8 +110,7 @@ const AttachmentModal = (props) => {
       <ModalNav tabNav={tabNav} setTabNav={setTabNav} isattachment={isattachment} />
       <TabContent activeTab={tabNav}>
         {!isattachment && (
-          <TabPane className={tabNav == 1 ? "fade active show" : ""} id="upload">
-            <AttachmentFilter setSearch={setSearch} setSorting={setSorting} />
+          <TabPane className={tabNav === 1 ? "fade active show" : ""} id="upload">
             {
               <div className="content-section select-file-section py-0 ratio2_3">
                 {
@@ -146,7 +145,7 @@ const AttachmentModal = (props) => {
             }
           </TabPane>
         )}
-        <TabPane className={tabNav == 2 ? "fade active show" : ""} id="select">
+        <TabPane className={tabNav === 2 ? "fade active show" : ""} id="select">
           {
             <div className="content-section drop-files-sec">
               <div>

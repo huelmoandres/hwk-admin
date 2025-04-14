@@ -2,16 +2,18 @@ import axios from "axios";
 import getCookie from "../CustomFunctions/GetCookie";
 import Cookies from "js-cookie";
 
-// Función para limpiar la sesión
-const clearSession = (router) => {
+export const clearSession = async (router) => {
   try {
+    await clientV1.post('/auth/logout', {}, { withCredentials: true });
     Cookies.remove("access_token");
     Cookies.remove("refresh_token");
     if (router) {
       router.push("/auth/login");
+    } else if (typeof window !== 'undefined') {
+      window.location.href = "/auth/login";
     }
   } catch (error) {
-    console.error("Error clearing session:", error);
+    console.log(error);
   }
 };
 
@@ -20,14 +22,6 @@ const client = axios.create({
   headers: {
     Accept: "application/json",
   },
-});
-
-const clientV1 = axios.create({
-  baseURL: process.env.API_PROD_URL_V1,
-  headers: {
-    Accept: "application/json",
-  },
-  withCredentials: true,
 });
 
 const request = async ({ ...options }, router) => {
@@ -46,6 +40,28 @@ const request = async ({ ...options }, router) => {
   }
 };
 
+const clientV1 = axios.create({
+  baseURL: process.env.API_PROD_URL_V1,
+  headers: {
+    Accept: "application/json",
+  },
+  withCredentials: true,
+});
+
+clientV1.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    if (error.response?.status === 401 &&
+      typeof window !== 'undefined' &&
+      !window.location.pathname.includes('/auth/login')) {
+      await clearSession();
+      return Promise.reject(error);
+    }
+
+    return Promise.reject(error);
+  }
+);
+
 export const requestV1 = async ({ ...options }, router, completeData = false) => {
   try {
     const isFormData = options?.data instanceof FormData;
@@ -53,9 +69,9 @@ export const requestV1 = async ({ ...options }, router, completeData = false) =>
     const headers = {
       Accept: "application/json",
       ...(isFormData
-        ? { "Content-Type": "multipart/form-data" } // ← Aquí lo forzás
+        ? { "Content-Type": "multipart/form-data" }
         : { "Content-Type": "application/json" }),
-      ...options.headers, // permitir sobrescritura manual si se desea
+      ...options.headers,
     };
 
     const response = await clientV1({
@@ -66,9 +82,10 @@ export const requestV1 = async ({ ...options }, router, completeData = false) =>
     return completeData ? response : response.data;
   } catch (error) {
     if (error?.response?.status === 401) {
-      console.log("acarouter",error )
-      clearSession(router);
+      await clearSession(router);
+      return null;
     }
+
     throw error;
   }
 };

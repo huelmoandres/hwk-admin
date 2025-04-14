@@ -6,27 +6,28 @@ const ImagesTab = ({ values, setFieldValue, errors, updateId }) => {
   return (
     <>
       <FileUploadField
-        paramsProps={{ mime_type: mediaConfig.image.join(",") }}
         errors={errors}
-        name="product_thumbnail_id"
-        id="product_thumbnail_id"
+        name="thumbnail"
+        id="thumbnail"
         title="Thumbnail"
         type="file"
         values={values}
         setFieldValue={setFieldValue}
         updateId={updateId}
+        deleteFiles={false}
+        addMoreFiles={false}
       />
       <FileUploadField
-        paramsProps={{ mime_type: mediaConfig.image.join(",") }}
         errors={errors}
-        name="product_galleries_id"
-        id="product_galleries_id"
+        name="pictures"
+        id="pictures"
         title="Images"
         type="file"
         multiple={true}
         values={values}
         setFieldValue={setFieldValue}
-        updateId={updateId}
+        deleteFiles={false}
+        addMoreFiles={false}
       />
     </>
   );

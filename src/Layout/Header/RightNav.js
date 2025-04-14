@@ -12,7 +12,6 @@ import {
 } from "react-icons/ri";
 import { Col } from "reactstrap";
 import Language from "./Language";
-import NotificationBox from "./NotificationBox";
 import ProfileNav from "./ProfileNav";
 import HeaderTooltip from "./HeaderTooltip";
 
@@ -72,7 +71,6 @@ const RightNav = ({ setMode, mode, setOpenSearchBar }) => {
           </div>
         </li>
         <Language />
-        <NotificationBox />
         <li id="Mode">
           <div className="mode">
             {mode == false ? (

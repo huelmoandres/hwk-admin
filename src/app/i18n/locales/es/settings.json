@@ -40,8 +40,9 @@
   "storeUpdated": "¡La configuración se ha actualizado correctamente!",
   "tabs": {
     "general": "General",
-    "emailConfiguration": "Configuración de correo",
+    "emailConfiguration": "Configuración de contacto",
     "socialNetworks": "Redes sociales",
-    "pages": "Páginas"
+    "pages": "Páginas",
+    "generalBanners": "Banners Generales"
   }
 }

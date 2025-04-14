@@ -117,6 +117,7 @@ export const SettingTabTitleListData = (t) => [
   { title: t("settings:tabs.emailConfiguration"), icon: <RiMailOpenLine /> },
   { title: t("settings:tabs.socialNetworks"), icon: <RiBankCardLine /> },
   { title: t("settings:tabs.pages"), icon: <RiBankCardLine /> },
+  { title: t("settings:tabs.generalBanners"), icon: <RiBankCardLine /> },
 ];
 
 export const SettingProductBoxOptions = [

@@ -1,5 +1,4 @@
 import FileUploadField from "../InputFields/FileUploadField";
-import SearchableSelectInput from "../InputFields/SearchableSelectInput";
 import SimpleInputField from "../InputFields/SimpleInputField";
 import { getHelperText } from "@/Utils/CustomFunctions/getHelperText";
 
@@ -21,13 +20,14 @@ const GeneralTab = ({ values, setFieldValue, errors }) => {
         helpertext={getHelperText("180x50px")}
         multiple={false}
         showImage={true}
+        addMoreFiles={true}
       />
 
       <FileUploadField
-        name="darkLogoImage"
+        name="logoDarkPath"
         title={t("form.formLogoDark")}
-        uniquename={values?.darkLogoPath}
-        id="darkLogoPath"
+        uniquename={values?.logoDarkPath}
+        id="logoDarkPath"
         type="file"
         values={values}
         setFieldValue={setFieldValue}
@@ -35,6 +35,7 @@ const GeneralTab = ({ values, setFieldValue, errors }) => {
         helpertext={getHelperText("180x50px")}
         multiple={false}
         showImage={true}
+        addMoreFiles={true}
       />
 
       <FileUploadField
@@ -49,6 +50,7 @@ const GeneralTab = ({ values, setFieldValue, errors }) => {
         helpertext={getHelperText("16x16px")}
         multiple={false}
         showImage={true}
+        addMoreFiles={true}
       />
 
       <SimpleInputField
