@@ -56,6 +56,7 @@ async function encrypt(data: any): Promise<string> {
   result.set(new Uint8Array(encryptedBuffer), iv.length);
 
   // Convert to base64 for storage
+  // @ts-ignore
   return btoa(String.fromCharCode(...result));
 }
 
@@ -97,14 +98,4 @@ export async function getEncryptedItem<T>(key: string): Promise<T | null> {
   } catch (error) {
     return null;
   }
-}
-
-// Remove item from localStorage
-export function removeEncryptedItem(key: string): void {
-  localStorage.removeItem(key);
-}
-
-// Clear all items from localStorage
-export function clearEncryptedItems(): void {
-  localStorage.clear();
 }

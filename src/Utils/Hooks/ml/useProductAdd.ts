@@ -25,7 +25,7 @@ const useProductAdd = () => {
         SuccessHandle(resDta, router, "/product", "Producto ingresado correctamente", pathname);
         invalidateQueriesByString(productDb);
       },
-      onError: (err) => {
+      onError: (err: any) => {
         ToastNotification("error", err?.response?.data?.message);
       },
     }

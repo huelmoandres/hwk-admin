@@ -1,4 +1,3 @@
-import { getPermissionArray } from "@/Components/Common/getPermissonArray";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { FaChevronDown } from "react-icons/fa";

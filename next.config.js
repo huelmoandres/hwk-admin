@@ -1,42 +1,21 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  reactStrictMode: false,
-  swcMinify: true,
   env: {
     API_PROD_URL: process.env.API_PROD_URL,
     API_PROD_URL_V1: process.env.API_PROD_URL_V1,
     storageURL: process.env.STORAGE_URL,
   },
-  redirects: async () => {
-    return [
-      {
-        source: "/",
-        destination: "/dashboard",
-        permanent: true,
-      },
-      {
-        source: "/en",
-        destination: "/dashboard",
-        permanent: true,
-      },
-    ];
-  },
+
   images: {
     remotePatterns: [
       {
         protocol: "http",
+        hostname: "127.0.0.1",
+      },
+      {
+        protocol: "http",
         hostname: "localhost",
-      },
-      {
-        protocol: "http",
-        hostname: "127.0.0.1",
-        port: "8000",
-      },
-      {
-        protocol: "http",
-        hostname: "127.0.0.1",
-        port: "3001",
       },
       {
         protocol: "https",
@@ -60,17 +39,20 @@ const nextConfig = {
       }
     ],
   },
-  devIndicators: {
-    buildActivity: false,
-  },
-  async rewrites() {
-    return [
+  module: {
+    rules: [
+      { test: /\.(ts|tsx|jsx)$/, loader: "ts-loader" },
+      { test: /\.css$/, use: ["style-loader", "css-loader"] },
       {
-        source: '/api/:path*',
-        destination: process.env.API_PROD_URL_V1 + "/:path*",
+        test: /\.(gif|svg|jpg|png|mp3|webp)$/,
+        use: ["file-loader"],
       },
-    ];
+    ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  }
+  // other boilerplate config goes down here
 };
 
-module.exports = nextConfig;
+export default nextConfig;

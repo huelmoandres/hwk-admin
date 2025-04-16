@@ -4,7 +4,6 @@ import LogoWrapper from "@/Components/CommonComponent/LogoWrapper";
 import MENUITEMS from "./MenuData";
 import AccountContext from "@/Helper/AccountContext";
 import SettingContext from "@/Helper/SettingContext";
-import { getPermissionArray } from "@/Components/Common/getPermissonArray";
 
 const MenuList = dynamic(() => import("./MenuList"), {
   ssr: false,
