@@ -1,8 +1,6 @@
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardBody, Col, Container, Row } from "reactstrap";
-import SettingContext from "../../Helper/SettingContext";
 import useStatistics from "@/Utils/Hooks/Statistics/useStatistics";
 import Loader from "../CommonComponent/Loader";
 import { RiProductHuntFill, RiProductHuntLine, RiTimer2Line, RiAccountCircleLine, RiAccountCircleFill} from "react-icons/ri";
@@ -39,12 +37,6 @@ const TopDashSection = ({ role }) => {
               </CardBody>
             </Card>
           </Col>
-          {/* <OrderStatus
-            setFilterValue={setFilterValue}
-            data={data}
-            filterType={filterType}
-            setFilterType={setFilterType}
-          /> */}
           {data && (
             <Col md={8} className="card-bottom-space">
               <Row className="row-cols-md-12 row-cols-1 g-sm-4 g-3">
