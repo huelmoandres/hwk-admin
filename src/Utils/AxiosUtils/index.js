@@ -1,21 +1,5 @@
 import axios from "axios";
-import getCookie from "../CustomFunctions/GetCookie";
 import Cookies from "js-cookie";
-
-export const clearSession = async (router) => {
-  try {
-    await clientV1.post('/auth/logout', {}, { withCredentials: true });
-    Cookies.remove("access_token");
-    Cookies.remove("refresh_token");
-    if (router) {
-      router.push("/auth/login");
-    } else if (typeof window !== 'undefined') {
-      window.location.href = "/auth/login";
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
 
 const client = axios.create({
   baseURL: process.env.API_PROD_URL,
@@ -87,6 +71,19 @@ export const requestV1 = async ({ ...options }, router, completeData = false) =>
     }
 
     throw error;
+  }
+};
+
+export const clearSession = async (router) => {
+  try {
+    await clientV1.post('/auth/logout', {}, { withCredentials: true });
+    if (router) {
+      router.push("/auth/login");
+    } else if (typeof window !== 'undefined') {
+      window.location.href = "/auth/login";
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 

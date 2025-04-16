@@ -51,7 +51,17 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
-  }
+  },
+  ...(process.env.NODE_ENV !== "production" ? {
+    async rewrites() {
+      return [
+        {
+          source: '/api/:path*',
+          destination: process.env.API_PROD_URL_V1 + "/:path*",
+        },
+      ];
+    },
+  } : {})
   // other boilerplate config goes down here
 };
 

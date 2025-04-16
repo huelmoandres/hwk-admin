@@ -6,6 +6,7 @@ export async function middleware(request) {
 
   // Verificar si la ruta actual es la de login
   const isLoginPage = request.nextUrl.pathname === "/auth/login";
+  const isIndexPage = request.nextUrl.pathname === "/";
 
   // Si no hay cookie o está expirada
   if (!authCookie || !authCookie.value) {
@@ -25,7 +26,7 @@ export async function middleware(request) {
     // Por ejemplo, haciendo una petición a tu API para validar el token
 
     // Si está intentando acceder a login pero ya tiene sesión, redirigir al dashboard
-    if (isLoginPage) {
+    if (isLoginPage || isIndexPage) {
       const dashboardUrl = new URL("/dashboard", request.url);
       return NextResponse.redirect(dashboardUrl);
     }
